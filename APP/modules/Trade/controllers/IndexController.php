@@ -361,7 +361,7 @@ class Trade_IndexController extends Zend_Controller_Action {
         if (!$checkReturn) {
             die(json_encode([
                 'error' => true,
-                'notice' => 'You can not save this trade because the price was out of range'
+                'notice' => 'You can not save this trade because the price was out of range test'
             ]));
         }
 
