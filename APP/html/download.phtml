@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title><?=$this->translate($this->module)?></title>
+	<?php include("_script.phtml");?>
+</head>
+<body>
+	<div id="page">
+    	<div id="header">
+			<?=$this->action("header","index","Sub",array('language'=>$this->language,'moduleTitle'=>$this->module))?>
+        </div><!--end header-->
+        <div id="main_index">
+			<div class="left_main_index">
+				<div class="school_index ">
+					<div class="title_top">
+						<span class="title_sub">
+							<span class="title_sub2">
+								<span class="title_sub1">
+									<?=$this->translate($this->module)?>
+								</span>
+							</span>
+						</span>	
+					</div><!--end title_top-->
+					
+					<div class="content_school_index">
+						<div class="schools_posts">
+							<?php if($this->post):?>
+					
+				<?php else:?>
+					<div class="wrap_download">
+					<table class="inner_download">
+						<tr style="text-align:center;height:30px;font-size:13px; font-weight:bold;background:#f2f2f2;">
+							<td width="10%" height="20">Stt</td>
+							<td width="60%">Tài liệu</td>
+							<td>Ngày đăng</td>
+							<td width="10%">Download</td>
+						</tr>
+					<?php foreach($this->posts as $k=>$post):?>
+						<tr>
+							<td style="text-align:center;" ><?=$k+1?></td>
+							<td style="padding:10px 15px;"><a href="<?=BASE_URL?>/download.php?f=<?=$post['file']?>"><?=$post['title']?></a></td>
+							<td style="text-align:center;"><?=date("d/m/Y, h:i a",$post['date'])?></td>
+							<td style="text-align:center;"><a href="<?=BASE_URL?>/download.php?f=<?=$post['file']?>"><img src="<?=BASE_URL?>/style/images/tool8.png" width="24" /></a></td>
+						</tr>
+					<?php endforeach;?>
+					</table>
+					<!--PAGEBAR-->
+						<?php if( $this->pageBar ):?>
+						<div class="pageBar">
+							<?php print $this->pageBar?>
+						</div>
+						<?php endif;?>
+					<!--END PAGEBAR-->	
+				</div>
+				<?php endif;?>		
+				<div class="clear"></div>
+									
+						</div>
+					</div><!--end content_school_index-->
+				</div><!--end school_index-->
+
+				</div><!--end left_main_index-->	
+			<div class="right_main_index">	
+				<?=$this->action("right","index","Sub",array('language'=>$this->language,'moduleTitle'=>$this->module))?>
+			</div>	
+			
+			<div id="footer">
+				<?php include("_footer.phtml");?>
+			</div><!--end footer-->
+		</div>		
+    </div><!--end page-->
+</body>
+</html>

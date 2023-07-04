@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>Góc giải trí</title>
+	<?php include("_script.phtml")?>
+</head>
+
+<body>
+	<div id="wrapper">
+	<?php include("_login_popup.phtml")?>
+	<?php include("_header.phtml")?>
+		
+		<div id="page">
+			<div class="page_title"><?php if($this->currentCat):?><?=$this->post['title']?><?php else:?><?=$this->translate($this->module)?><?php endif;?></div>
+			<div class="clear"></div>
+			<div class="container">
+				<?php if($this->post):?>
+					<div class="post_content">
+						<div class="post_option">
+						<?=$this->action("postoption","index","Sub",array('language'=>$this->language,'curMod'=>$this->module,'curPost'=>$this->post))?>
+						</div>
+						<?=$this->post['content']?>
+						<div class="news_like">
+							<?=$this->action("endabout","index","Sub",array('language'=>$this->language,'curMod'=>$this->module,'curPost'=>$this->post,'curCat'=>$this->currentCat))?>
+						</div>
+					</div>
+				<?php else:?>
+				<?php $name = $this->module;?>
+				<?php $lowname = strtolower($name);?>
+				<div class="list_post_content">
+					<?php foreach($this->cats as $post):?>
+					<div class="posts_list_left"></div>
+					<div class="posts_list">
+						<a href="<?=BASE_URL?>/<?=$this->language?>/<?=$this->module?>/?C=<?=$post['ID']?>" class="post_avatar">
+							<img src="<?=BASE_URL?>/files/images/<?=$lowname?>/<?=$post['img']?>" width="154" height="102"/>
+						</a>
+						<h3><a href="<?=BASE_URL?>/<?=$this->language?>/<?=$this->module?>/?C=<?=$post['ID']?>"><?=get_quote($post['title'],70);?></a></h3>
+						<span style="text-align:justify"><?=$post['quote']?></span>
+						<b class="clear"></b>
+					</div>
+					<div class="posts_list_right"></div>
+					<div class="clear"></div>
+					<?php endforeach;?>
+					<?php if( $this->pageBar ):?>
+					<div class="pagebar">
+						<div class="pagelist">
+							<?=$this->pageBar?>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<?php endif;?>
+				</div>
+				<?php endif;?>		
+				<div class="clear"></div>
+			</div><!-- End .container -->
+		</div><!-- End #page -->
+		
+		<?=$this->action("right","index","Sub",array( 'language'=>$this->language ))?>
+		<div class="clear"></div>
+	<?php include("_footer.phtml");?>
+
+	</div><!--End #wrapper-->
+</body>
+</html>

@@ -1,0 +1,13 @@
+<div class="submenu">
+    <div class="heading"><i class="fa fa-diamond blink"></i>&nbsp;&nbsp;Màu sắc</div>
+    <?php if($this->color):?>
+    <ul>
+        <?php foreach($this->color as $k => $a):?>
+            <li <?=($this->colorID==$a['ID']) ? 'class="active"' : ''?>>
+                <a href="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'san-pham' : 'Product'); ?>/C<?= $this->catID ?>?color=<?=$a['ID']?>">
+                    <i class="fa fa-angle-right"></i> <?=$a['title']?></a>
+            </li>
+        <?php endforeach;?>        
+    </ul>
+    <?php endif;?>
+</div>

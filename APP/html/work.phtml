@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<?php
+$action = $this->action;
+$tab = $this->tab;
+?>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TheAlchemist</title>
+        <link rel="shortcut icon" href="<?= BASE_URL ?>/favicon.ico" />
+        <link rel="stylesheet" href="<?= BASE_URL ?>/style/css/bootstrap.css">
+        <link rel="stylesheet" href="<?= BASE_URL ?>/style/css/social.css">
+        <script src="<?= BASE_URL ?>/style/js/jquery-3.6.0.min.js"></script>
+        <script src="<?= BASE_URL ?>/style/js/bootstrap.min.js"></script>
+        <script src="<?= BASE_URL ?>/style/js/social.js"></script>
+        <script src="https://malsup.github.io/jquery.form.js"></script>
+        <link rel="stylesheet" href="<?= BASE_URL ?>/style/css/bootstrap-select.css">
+        <script src="<?= BASE_URL ?>/style/js/bootstrap-select.js"></script>
+        <?php if ($tab): ?>
+            <script>
+                $("html, body").animate({scrollTop: 5000}, 2000);
+            </script>
+        <?php endif; ?>
+    </head>
+    <body>
+        <div id="container">
+
+            <?=
+            $this->action("header", "index", "Social", array(
+                'language' => $this->language,
+                'id_active' => $this->id_active,
+                'moduleTitle' => $this->module))
+            ?>
+            <?php if ($action == 'addpost'): ?>
+                <?=
+                $this->action("addpost", "index", "Work", array(
+                    'language' => $this->language,
+                    'id_active' => $this->id_active,
+                    'action' => $action,
+                    'moduleTitle' => $this->module))
+                ?>
+            <?php elseif ($action == 'editpost'): ?>
+                <?=
+                $this->action("editpost", "index", "Work", array(
+                    'language' => $this->language,
+                    'id_active' => $this->id_active,
+                    'moduleTitle' => $this->module))
+                ?>
+            <?php else: ?>
+                <?=
+                $this->action("content", "index", "Work", array(
+                    'language' => $this->language,
+                    'id_active' => $this->id_active,
+                    'moduleTitle' => $this->module))
+                ?>
+
+            <?php endif; ?>
+            <a class="work-home" title="Back home" href="<?= BASE_URL ?>/vn/trade"></a>
+        </div>
+
+    </body>
+
+</html>

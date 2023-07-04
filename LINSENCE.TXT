@@ -1,0 +1,23 @@
+/**
+ * dosFox Framework v1.5
+ *
+ * LICENSE ( C @ 20010 )
+ * 
+ * This source has been writting by Nguyen Duc Minh 
+ * Company: DOS 
+ * Email: ducminh_ajax@yahoo.com.vn or minhnd@dosvn.com
+ * This source is a CMS base on ZEND framework & Owl library
+ * Very easy to setup and developer many benefits for website
+ * When you use dosFox you:
+		+ Can't replace or change copyright & linsence
+		+ Can build modules and templates for your applications
+		+ Every chance must be accepted by author 
+ * Thank for using our source 
+ * More infomation for developer
+ * Some edit:
+       + Zend_Controller_Dispatcher_Standard
+
+       + Zend_View
+       + Zend_Action
+       + Zend_Controller_Action_Helper_Abstract
+ */

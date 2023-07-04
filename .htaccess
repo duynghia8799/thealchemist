@@ -1,0 +1,44 @@
+RewriteEngine on
+RewriteRule !\.([a-z0-9]+)$ index.php
+# BEGIN cPanel-generated php ini directives, do not edit
+# Manual editing of this file may result in unexpected behavior.
+# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
+# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
+<IfModule php5_module>
+   php_flag asp_tags Off
+   php_flag display_errors Off
+   php_value max_execution_time 3000
+   php_value max_input_time 300
+   php_value max_input_vars 5000
+   php_value memory_limit 128M
+   php_value post_max_size 200M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php56"
+   php_value upload_max_filesize 200M
+   php_flag zlib.output_compression Off
+</IfModule>
+<IfModule lsapi_module>
+   php_flag asp_tags Off
+   php_flag display_errors Off
+   php_value max_execution_time 3000
+   php_value max_input_time 300
+   php_value max_input_vars 5000
+   php_value memory_limit 128M
+   php_value post_max_size 200M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php56"
+   php_value upload_max_filesize 200M
+   php_flag zlib.output_compression Off
+</IfModule>
+# END cPanel-generated php ini directives, do not edit
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+#PassengerAppRoot "/home/dioxtfeq/alchemist"
+#PassengerBaseURI "/"
+#PassengerPython "/home/dioxtfeq/virtualenv/alchemist/3.7/bin/python"
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION BEGIN
+<IfModule Litespeed>
+SetEnv TA_LIBRARY_PATH /home/dioxtfeq/venv/alchemist/3.7/lib
+SetEnv TA_INCLUDE_PATH /home/dioxtfeq/venv/alchemist/3.7/include
+</IfModule>
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION END

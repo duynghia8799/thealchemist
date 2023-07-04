@@ -1,0 +1,87 @@
+<?php $arrModule = array(
+    'Home' => 'trang-chu',
+    'About' => 'gioi-thieu',
+    'Shareholder' => 'co-dong',
+    'News' => 'hoat-dong',
+    'Services' => 'linh-vuc-kinh-doanh',
+    'Contact' => 'lien-he',
+    'Career' => 'nhan-su',
+    'Library' => 'thu-vien',
+    'Project' => 'du-an',
+    'Gallery' => 'thu-vien-anh',
+);
+?>
+<?=
+$this->action("header", "index", "Sub", array(
+    'language' => $this->language,
+    'moduleTitle' => $this->module,
+    'meta_desc'=>$this->meta['desc'],
+    'meta_key'=>$this->meta['key']
+))
+?>
+<?php
+$colors = array(
+    //"color-orange",
+    "color-blue");
+$color = $colors[rand(0, count($colors) - 1)];
+?>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="box color-blue">
+                <div class="posts">
+                    <div class="post-title"><?= $this->translate('Search') ?></div>
+                    <div> <?= $this->translate('Have') ?> <b><?=$this->total?></b> <?=$this->translate('result')?>: <u><?=$this->word?></u></div>
+                    <?php if ( $this->posts ): ?>
+                        <?php if ( $this->posts ):?>
+                            <?php foreach ( $this->posts as $post ): ?>
+                                <div class="media">
+                                    <?php if($post['pic']!=NULL && $post['module']!='Shareholder' && $post['module']!='About'):?>
+                                     <a class="pull-left" href="<?= BASE_URL ?>/<?= $this->language ?>/<?= $arrModule[$post['module']] ?><?= $post['postID'] ?>/<?= $this->Plugins->createAlias($post['title']) ?>" title="<?= $post['title'] ?>">
+                                        <img class="media-object" src="<?= BASE_URL ?>/files/images/<?=$post['pic']?>" alt="<?= $post['title'] ?>">
+                                    </a>
+                                    <?php endif;?>
+                                    <div class="media-body">
+                                        <h4 class="media-heading clearfix">
+                                            <a href="<?= BASE_URL ?>/<?= $this->language ?>/<?= $arrModule[$post['module']] ?><?= $post['postID'] ?>/<?= $this->Plugins->createAlias($post['title']) ?>" title="<?= $post['title'] ?>"><?= $post['title'] ?></a>
+                                        </h4>
+                                        <h4 class="media-date clearfix">
+                                            <?php if($post['module']!='About'):?>
+                                            <?= date("H:i:s | d/m/Y", $post['date']) ?> |
+                                            <?php endif;?>
+                                            <a href="<?= BASE_URL ?>/<?= $this->language ?>/<?= $arrModule[$post['module']] ?>"><u><?=$this->translate($post['module'])?></u></a></h4>
+                                        <div class="media-desc"><?= get_quote(strip_tags($post['quote']), 200) ?></div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                            <?php if ( $this->pageBar ): ?>
+                                <div class="page">
+                                    <?php print $this->pageBar ?>
+                                </div>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <p><?= $this->translate("No result") ?></p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <?=
+            $this->action("quickmenu", "index", "Sub", array(
+                'language' => $this->language,
+                'moduleTitle' => $this->module))
+            ?>
+            <?=
+            $this->action("news", "index", "Sub", array(
+                'language' => $this->language,
+                'moduleTitle' => $this->module))
+            ?>
+        </div>
+    </div>
+</div>
+<?=
+$this->action("footer", "index", "Sub", array(
+    'language' => $this->language,
+    'moduleTitle' => $this->module))
+?>

@@ -1,0 +1,27 @@
+<div class="cat cat-home">
+    <?php include 'p_cat-menu.phtml'; ?>
+    <div class="posts">
+        <div class="nav clear">
+            <ul>
+                <li><a>Sản phẩm</a></li>
+                <li><a><?=$this->title?></a></li>
+                <?php if($this->color_title):?>
+                    <li><a><?=$this->color_title?></a></li>
+                <?php endif;?>
+            </ul>
+        </div>
+        <div class="list">
+            <?php
+            ////////
+            foreach ($this->posts as $a) {
+                $path=BASE_URL."/files/images/product/".$a['i0mg'];
+                $link=BASE_URL .'/'.$this->language .'/'.($this->language == "vn" ? 'san-pham' : 'Product'). '/p'.$a['ID'] .'/'.$this->Plugins->createAlias($a['title']);
+                echo "<a href='{$link}' class='product-pattern' title='{$a['title']}'>"
+                . "<img src='{$path}'/>"
+                . "<div class='cap'>{$a['title']}</div>"
+                . "</a>";
+            }
+            ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,164 @@
+<?=
+$this->action("header", "index", "Sub", array(
+    'language' => $this->language,
+    'moduleTitle' => $this->module,
+    'meta_desc'=>$this->meta['desc'],
+    'meta_key'=>$this->meta['key']
+))
+?>
+<?php
+$colors = array(
+   // "color-orange",
+    "color-blue");
+$color = $colors[rand(0, count($colors) - 1)];
+?>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <?php if ( $this->post ): ?>
+                <div class="color-white">
+                    <div class="post">
+                        <ol class="breadcrumb">
+                            <li><a href="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'du-an' : 'Project'); ?>"><?= $this->translate('Project') ?></a></li>
+                            <li><a href="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'du-an' : 'Project'); ?>/C<?= $this->currentCat ?>/<?= $this->Plugins->createAlias($this->title) ?>"><?= $this->title ?></a></li>
+                            <li class="active"><a href="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'du-an' : 'Project'); ?>/p<?= $this->post['ID'] ?>/<?= $this->Plugins->createAlias($this->post['title']) ?>"><?= $this->post['title'] ?></a></li>
+                        </ol>
+                        <div class="post-content project-detail clearfix">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <img class="img" src="<?= BASE_URL ?>/files/images/project/<?= $this->post['img'] ?>"/>
+                                </div>
+                                <div class="col-xs-6">
+                                    <table cellpadding="10" class="table-condensed">
+                                        <tr>
+                                            <td width="100" valign="top">
+                                                <b><?= $this->translate('Project') ?>:</b>
+                                            </td>
+                                            <td>
+                                                <span class="name"><?= $this->post['title'] ?></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top">
+                                                <b><?= $this->translate('Owner') ?>:</b>
+                                            </td>
+                                            <td><?= $this->post['inventory'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top">
+                                                <b><?= $this->translate('Section') ?>:</b>
+                                            </td>
+                                            <td><?= $this->post['cat_title'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top">
+                                                <b><?= $this->translate('Year of expected completion') ?>:</b>
+                                            </td>
+                                            <td><?= $this->post['year'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><b><?= $this->translate('Location') ?>:</b></td>
+                                            <td><?= $this->post['address'] ?></td>
+                                        </tr>
+<!--                                        <tr>
+                                            <td valign="top"><b><?= $this->translate('Service') ?>:</b></td>
+                                            <td><div><?= $this->post['service_info_vn'] ?></div></td>
+                                        </tr>-->
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <h4><?= $this->translate('Service') ?>:</h4>
+                                <div><?=$this->post['service']?></div>
+                            </div>
+                            <?php if(trim($this->post['content'])!=" "):?>
+                            <div class="clearfix">
+                                <h4><?= $this->translate('Description') ?>:</h4>
+                                <div><?=$this->post['content']?></div>
+                            </div>
+                            <?php endif;?>
+                            <?=
+                            $this->action("share", "index", "Sub", array(
+                                'language' => $this->language,
+                                'moduleTitle' => $this->module))
+                            ?>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="box <?php echo $color; ?>">
+                        <?php if ( $this->currentCat ): ?>
+                            <?php if ( count($this->posts) > 0 ): ?>
+                                <div class="posts">
+                                    <table class="project-list" cellpadding="3" cellspacing="0">
+                                        <tr>
+                                            <th width="20%"><?= $this->translate('Section') ?></th>
+                                            <th width="20%"><?= $this->translate('Project') ?></th>
+                                            <th width="20%"><?= $this->translate('Owner') ?></th>
+                                            <th width="20%"><?= $this->translate('Location') ?></th>
+                                            <th width="20%"><?= $this->translate('Service') ?></th>
+                                        </tr>
+                                        <?php foreach ( $this->posts as $post ): ?>
+                                            <tr>
+                                                <td>
+                                                    <a href="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'du-an' : 'Project'); ?>/C<?= $post['parent_id'] ?>/<?= $this->Plugins->createAlias($this->title) ?>">
+                                                        <?= $post['cat_title'] ?>
+                                                    </a>
+                                                </td>
+                                                <td><a title="<?=$post['title']?>" href="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'du-an' : 'Project'); ?>/p<?= $post['ID'] ?>/<?= $this->Plugins->createAlias($post['title']) ?>">
+                                                        <?= get_quote(strip_tags($post['title']), 205) ?>
+                                                    </a></td>
+                                                <td> <a title="<?=$post['title']?>" href="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'du-an' : 'Project'); ?>/p<?= $post['ID'] ?>/<?= $this->Plugins->createAlias($post['title']) ?>">
+                                                        <?= $post['inventory'] ?></a></td>
+                                                <td><a title="<?=$post['title']?>" href="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'du-an' : 'Project'); ?>/p<?= $post['ID'] ?>/<?= $this->Plugins->createAlias($post['title']) ?>">
+                                                        <?= $post['address'] ?></a></td>
+                                                <td><a title="<?=$post['title']?>" href="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'du-an' : 'Project'); ?>/p<?= $post['ID'] ?>/<?= $this->Plugins->createAlias($post['title']) ?>">
+                                                        <?= $post['service'] ?></a></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </table>
+                                </div>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <div class="posts">
+                                <?php foreach ( $this->cats as $post ): ?>
+                                    <div class="media">
+                                        <a class="pull-left" href="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'du-an' : 'Project'); ?>/C<?= $post['ID'] ?>/<?= $this->Plugins->createAlias($post['title']) ?>" title="<?= $post['title'] ?>">
+                                            <img class="media-object" src="<?= BASE_URL ?>/files/images/<?php echo(strtolower($this->module)); ?>/<?= $post['img'] ?>" alt="<?= $post['title'] ?>">
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading clearfix"><a href="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'du-an' : 'Project'); ?>/C<?= $post['ID'] ?>/<?= $this->Plugins->createAlias($post['title']) ?>" title="<?= $post['title'] ?>"><?= $post['title'] ?></a></h4>
+                                            <div class="media-desc"><?= get_quote(strip_tags($post['quote']), 200) ?></div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </div>
+
+            </div>
+            <div class="col-lg-4">
+                <?=
+                $this->action("submenu", "index", "Sub", array(
+                    'language' => $this->language,
+                    'id_active' => $this->currentCat,
+                    'moduleTitle' => $this->module))
+                ?>
+                <?=
+                $this->action("quickmenu", "index", "Sub", array(
+                    'language' => $this->language,
+                    'moduleTitle' => $this->module))
+                ?>
+                <?=
+                $this->action("news", "index", "Sub", array(
+                    'language' => $this->language,
+                    'moduleTitle' => $this->module))
+                ?>
+            </div>
+        </div>
+    </div>
+    <?=
+    $this->action("footer", "index", "Sub", array(
+        'language' => $this->language,
+        'moduleTitle' => $this->module))
+    ?>

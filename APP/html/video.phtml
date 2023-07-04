@@ -1,0 +1,62 @@
+<?=
+$this->action("header", "index", "Sub", array(
+    'language' => $this->language,
+    'moduleTitle' => $this->module,
+    'meta_desc'=>$this->meta['desc'],
+    'meta_key'=>$this->meta['key']
+))
+?>
+<?php
+$colors = array(
+    //"color-orange",
+    "color-blue");
+$color = $colors[rand(0, count($colors) - 1)];
+?>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="color-black">
+                <div class="post">
+                    <h1 class="post-title">
+                        <span class="fa fa-camera"></span> Video
+                    </h1>
+                    <div class="post-content clearfix">
+                        <div class="playlist">
+                            <?php if ( $this->video ): ?>
+                                <div class="media-player">
+                                    <iframe width="100%" height="100%" src="//www.youtube.com/embed/<?= $this->video[0]['content'] ?>" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                                <div class="media-list">
+                                    <ul>
+                                        <?php foreach ( $this->video as $a ): ?>
+                                        <li data-url="http://www.youtube.com/watch?v=<?=$a['content']?>">
+                                                <a><?=$a['title']?></a>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <?=
+            $this->action("quickmenu", "index", "Sub", array(
+                'language' => $this->language,
+                'moduleTitle' => $this->module))
+            ?>
+            <?=
+            $this->action("news", "index", "Sub", array(
+                'language' => $this->language,
+                'moduleTitle' => $this->module))
+            ?>
+        </div>
+    </div>
+</div>
+<?=
+$this->action("footer", "index", "Sub", array(
+    'language' => $this->language,
+    'moduleTitle' => $this->module))
+?>

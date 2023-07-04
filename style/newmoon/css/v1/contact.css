@@ -1,0 +1,169 @@
+.box-contact {
+    width:100%;
+    display:inline-block;
+    min-height:636px;
+    box-shadow:0px 2px 25px rgba(0, 0, 0, 0.08);
+    padding-right:48px;
+    margin-top:60px;
+    border-radius: 8px;
+}
+.box-contact .box-left {
+    width:632px;
+    height:636px;
+    float:left;
+    background:url(../../images/v1/bg-contact.png) no-repeat 0 0;
+    padding:60px;
+    position:relative;
+}
+.box-contact .box-left .title {
+    margin:0;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 52px;
+    color: #FFFFFF;
+    margin-bottom:16px;
+}
+.box-contact .box-left .des {
+    margin:0;
+    margin-bottom:20px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: #CCCCCC;
+    max-width:403px;
+}
+.box-contact .box-left .text {
+    margin:0;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    margin-top:40px;
+}
+.box-contact .box-left .text a {
+    color: #FFFFFF;
+    display:block;
+    padding-left:48px;
+}
+.box-contact .box-left .phone {
+    background:url(../../images/v1/icon-phone.svg) no-repeat 0 center;
+}
+.box-contact .box-left .mail {
+    background:url(../../images/v1/icon-mail.svg) no-repeat 0 center;
+}
+.box-contact .box-left .telegam {
+    background:url(../../images/v1/icon-telegam-c.svg) no-repeat 0 center;
+}
+.box-contact .box-left .box-network {
+    width:100%;
+    position:absolute;
+    left:0;
+    bottom:0;
+    padding:60px;
+}
+.box-contact .box-left .box-network .icon {
+    width:32px;
+    float:left;
+    height:32px;
+    margin-right:20px;
+    text-indent:-999px;
+}
+.box-contact .box-left  .box-network .google {
+    background: url(../../images/v1/icon-gg32.svg) no-repeat center center;
+}
+.box-contact .box-left  .box-network .wt {
+    background: url(../../images/v1/icon-wt32.svg) no-repeat center center;
+}
+.box-contact .box-left   .box-network .fb {
+    background: url(../../images/v1/icon-fb32.svg) no-repeat center center;
+}
+.box-contact .box-form {
+    width: calc(100% - 632px);
+    float:left;
+    padding-left:48px;
+    padding-top:28px;
+}
+.box-contact .box-form .form {
+    padding:0;
+    margin:0 -16px;
+}
+.box-contact .box-form li {
+    width:100%;
+    float:left;
+    list-style:none;
+    margin-top:32px;
+    position:relative;
+}
+.box-contact .box-form .label {
+    display:block;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #2C2C2C;
+    margin-bottom:10px;
+}
+.box-contact .box-form .label span {
+    color: #CC0001;
+    margin-left:4px;
+}
+.box-contact .box-form  .input {
+    background: #F6F6F6;
+    border-radius: 8px;
+    width:100%;
+    display:block;
+    height:44px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: #2C2C2C;
+    border:1px solid #F6F6F6;
+    padding:10px 16px;
+    text-align:left;
+}
+.box-contact .box-form .textarea {
+    background: #F6F6F6;
+    border-radius: 8px;
+    width:100%;
+    display:block;
+    height:182px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    color: #2C2C2C;
+    border:1px solid #F6F6F6;
+    padding:10px 16px;
+    text-align:left;
+}
+.box-contact .box-form  .input.erro, .box-contact .box-form .textarea.erro {
+    border: 1px solid #CC0001
+}
+.box-contact .box-form  .input::-webkit-input-placeholder, .box-contact .box-form  .textarea::-webkit-input-placeholder {
+    color: #CCCCCC;
+}
+.box-contact .box-form .bt {
+    text-align:right;
+    padding:0 16px;
+}
+.box-contact .box-form .btn-button {
+    display:inline-block;
+    padding: 12px 24px;
+    width: 202px;
+    height: 48px;
+    background: #003FE6;
+    border-radius: 8px;
+    border:0;
+    cursor:pointer;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+.box-contact .box-form .text-erro {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: #CC0001;
+    /*    position:absolute;
+        left:16px;
+        top:-22px;*/
+}

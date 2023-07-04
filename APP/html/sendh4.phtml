@@ -1,0 +1,87 @@
+<?php
+$symboyAlls = $this->symboyAlls;
+
+$date = $_REQUEST['date'] ? $_REQUEST['date'] : date('Y-m-d 00:00:00');
+$dateEnd = $_REQUEST['date_end'] ? $_REQUEST['date_end'] : date('Y-m-d H:i:s');
+$cur = $_REQUEST['cur'] ? $_REQUEST['cur'] : ($symboyAlls[0]['symbol'] ?? 'AAVEUSDT');
+$strDate = strtotime($date) . '000';
+$strDateEnd = strtotime($dateEnd) . '000';
+
+$symboyAlls = $this->symboyAlls;
+$curDatas = [];
+$curNext = "";
+if ($symboyAlls) {
+    $flag = 0;
+    foreach ($symboyAlls as $row) {
+        $curDatas[] = $row['symbol'];
+    }
+
+    foreach ($curDatas as $a) {
+        if ($flag) {
+            $curNext = $a;
+            break;
+        }
+
+
+        if ($a == $cur) {
+            $flag = 1;
+        }
+    }
+}
+
+//$url='localhost'.BASE_URL;
+if (!$flag || !$curNext)
+    die("OK");
+?>
+
+<html>
+    <script src="<?= BASE_URL ?>/style/js/jquery-3.6.0.min.js"></script>
+    <script>
+        var burl = "https://api.binance.com";
+
+        var query = '/api/v3/klines';
+
+
+        query += '?symbol=<?php echo($cur) ?>&interval=4h&startTime=<?php echo($strDate) ?>&endTime=<?php echo($strDateEnd) ?>';
+
+        var url = burl + query;
+
+        var ourRequest = new XMLHttpRequest();
+        var datas = [];
+        ourRequest.open('GET', url, true);
+        ourRequest.onload = function () {
+            console.log(JSON.parse(ourRequest.responseText));
+            var data = ourRequest.responseText;
+            $.ajax({
+                type: "POST",
+                url: "https://thealchemist.ai/vn/processh4",
+                cache: false,
+                data: {
+                    'data': JSON.parse(data),
+                    'symbol': '<?php echo($cur) ?>'
+                },
+                dataType: "json",
+                success: function (response) {
+
+                    if (!response.error) {
+                        $("#msg").addClass('alert-success').html(response.msg);
+                    } else {
+                        $("#msg").addClass('alert-danger').html(response.msg);
+                    }
+                }
+            });
+        };
+        ourRequest.send();
+
+        var urlNext = 'https://thealchemist.ai/vn/sendh4?date=' + '<?php echo($date) ?>' + '&date_end=' + '<?php echo($dateEnd) ?>' + '&cur=' + '<?php echo($curNext) ?>';
+        setTimeout(function () {
+            window.location.href = urlNext;
+        }, 100);
+
+
+    </script>
+    <body>
+        <div id="msg"></div>
+    </body>
+
+</html>

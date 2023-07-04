@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <?php include __DIR__ . '/layouts/head.phtml'; ?>
+    <link rel="stylesheet" href="<?= BASE_URL ?>/style/css/new-css/predictions.css">
+    
+    <body>
+
+        <!--header-->
+        <?php include __DIR__ . '/layouts/header.phtml'; ?>
+        <!--end header-->
+
+
+        <!--Content Preditions-->
+        <div class="wrapper">
+            <div class="container">
+                <div class="notice-box">
+                    <a> Bitcoin tranfer 10% in the last 24 hours!<span style="color: #1A64F0;"> <b>SEE MORE!</b></span></a>
+                </div>
+                <div class="table-predictions">
+                    <h2>Predictions</h2>
+                    <?php 
+                        if ($this->datas):
+                            $datas = $this->datas;
+                    ?>      
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Coin</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Price</th>
+                                    <th>Predict Last</th>
+                                    <th>Predict previous</th>
+                                    <th>Actual last</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    foreach ($datas as $data):
+                                ?>
+                                    <tr>
+                                        <td>
+                                            <img src="<?= $data['icon'] ?? '/style/css/images/predictions/bitcoin.png' ?>" class="icon">
+                                            <div class="info-coin">
+                                                <div class="name-coin"><?= ucfirst($data['symbol']) ?></div>
+                                                <div class="sym-coin"><?= $data['symbol'] ?></div>
+                                            </div>
+                                        </td>
+                                        <td><?= date('d/m/Y H:m:i' , $data['time_create']) ?></td>
+                                        <td>--</td>
+                                        <td><?= decimal($data['price_actual_previous'],4) ?? '$--' ?></td>
+                                        <td><?= decimal($data['price_preidct_last'],4) ?? '$--' ?></td>
+                                        <td><?= decimal($data['price_predict_previous'],4) ?? '$--' ?></td>
+                                        <td><?= decimal($data['price_actual_last'],4) ?? '$--' ?></td>
+                                        
+                                    </tr>
+                                <?php      
+                                    endforeach;
+                                ?>
+                            </tbody>
+                        </table>
+                    <?php
+                        endif;
+                    ?>
+                </div>
+                <div class="desc-predictions">The AI-Predicts platform use AI technology to forecast the next 1 hour session opening price of a coin/token.The platform is available for free, nevertheless, consider the hazards of trading using data from this platform.</div>
+            </div>
+        </div>
+        <!--end Content Preditions-->
+
+        <!--footer-->
+        <?php include __DIR__ . '/layouts/footer.phtml'; ?>
+        <!--End footer-->  
+
+        <!--popup connect wallet-->
+        <?php include __DIR__ . '/layouts/pop.phtml'; ?>
+        <!--End popup connect wallet--> 
+
+    </body>
+</html>

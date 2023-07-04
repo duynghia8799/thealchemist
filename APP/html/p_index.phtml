@@ -1,0 +1,13 @@
+<div style="padding:20px 0;">
+    <div id="thumbnail-slider">
+        <div class="inner">
+            <ul>
+                <?php foreach($this->slide as $a):?>
+                    <li>
+                        <a class="thumb" href="<?= BASE_URL ?>/files/images/slide/<?=$a['img']?>"></a>
+                    </li>
+                <?php endforeach;?>
+            </ul>
+        </div>
+    </div>
+</div>

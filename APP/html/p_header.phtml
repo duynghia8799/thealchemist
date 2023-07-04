@@ -1,0 +1,57 @@
+<?php
+$customer = $_SESSION['cp__customer'];
+$module = $this->module;
+?>
+<header>
+
+    <div class="container-full-width">
+        <!--        <div class="d-flex justify-content-center h-100">
+                    <div class="searchbar">
+                      <input class="search_input" type="text" name="" placeholder="Search...">
+                      <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+                    </div>
+                  </div>-->
+        <div class="crypt-header">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-3">
+                    <div class="row" style="padding-left:10px">
+                        <div class="col-xs-2">
+                            <div class="crypt-logo" style="padding-left:12px;">
+                                <img src="<?= BASE_URL ?>/style/img/logo.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-md-9 d-none d-md-block d-lg-block">
+                    <ul class="crypt-heading-menu fright">
+                        <li <?php $module == 'default' ? _e("class='active'") : "" ?>><a href="<?= BASE_URL ?>/<?= $this->language ?>">Home</a></li>
+                        <li <?php $module == 'trade' ? _e("class='active'") : "" ?>><a href="<?= BASE_URL ?>/<?= $this->language ?>/trade">AI-Trade</a></li>
+                        <li <?php $module == 'Social' ? _e("class='active'") : "" ?>><a href="<?= BASE_URL ?>/<?= $this->language ?>/social">Social</a></li>
+                        <li <?php $module == 'Knowledge' ? _e("class='active'") : "" ?>><a href="<?= BASE_URL ?>/<?= $this->language ?>/knowledge">Knowledge</a></li>
+                        <li <?php $module == 'News' ? _e("class='active'") : "" ?>><a href="<?= BASE_URL ?>/<?= $this->language ?>/news">News</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><img src="<?= BASE_URL ?>/style/img/search.png" alt="" style="width:14px"></li>
+                        <li class="crypt-box-menu menu-signin">
+                            <?php if ($customer): $name = explode(' ', $customer['name']) ?>
+                                <a href="<?= BASE_URL ?>/vn/social"><?= $name[0] ?></a>
+                            <?php else: ?>
+                                <a href="<?= BASE_URL ?>/vn/login">Sign In</a>
+                            <?php endif; ?>
+                        </li>
+                        <li class="crypt-box-menu menu-wallet"><a href="#">Connect Wallet</a></li>
+                    </ul>
+                </div>
+                <i class="menu-toggle pe-7s-menu d-xs-block d-sm-block d-md-none d-sm-none"></i>
+            </div>
+        </div>
+    </div>
+    <!--    <div class="crypt-mobile-menu">
+            <ul class="crypt-heading-menu">
+                <li class="active"><a href="">Tin tức</a></li>
+                <li><a href="">Kiến thức</a></li>
+                <li><a href="">Tài khoản</a></li>
+                <li class="crypt-box-menu menu-red"><a href="<?= BASE_URL ?>/vn/register">Đăng ký</a></li>
+                <li class="crypt-box-menu menu-green"><a href="<?= BASE_URL ?>/vn/login">Đăng nhập</a></li>
+            </ul>
+        </div>-->
+</header>

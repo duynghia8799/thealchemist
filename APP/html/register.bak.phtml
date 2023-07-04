@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TheAlchemist</title>
+        <link rel="shortcut icon" href="<?= BASE_URL ?>/favicon.ico" />
+        <link rel="stylesheet" href="<?= BASE_URL ?>/style/new/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?= BASE_URL ?>/style/new/css/style.css">
+        <link rel="stylesheet" href="<?= BASE_URL ?>/style/new/css/icons.css">
+        <link rel="stylesheet" href="<?= BASE_URL ?>/style/new/css/ui.css">
+
+    </head>
+
+    <body>
+        <div class="container container-login">
+            <div class="container-login-content">
+                <div class="container-login-logo">
+                    <a href="<?= BASE_URL ?>/<?= $this->language ?>"><img src="<?= BASE_URL ?>/style/img/login.png" alt=""></a>
+                </div>
+                <div class="container-login-sologan">
+                    Welcome back
+                </div>
+                <div class="container-login-form">
+                    <ul>
+                        <li><a class="nav-link" href="<?= BASE_URL ?>/<?= $this->language ?>/login">Login</a></li>
+                        <li class="active"><a class="nav-link" href="<?= BASE_URL ?>/<?= $this->language ?>/register">Register</a></li>
+                    </ul>
+                    <div class="container-login-form-action">
+                        <?php if ($this->error) { ?>
+                            <div style="color:red;font-size:14px;text-align: left">
+                                <?= implode("<br><br>", $this->error); ?>
+                            </div>
+                        <?php } ?>
+                        <?php if ($this->success) { ?>
+                            <div style="color:red;font-size:14px;">
+                                <?= $this->success; ?>
+                            </div>
+                        <?php } ?>
+                        <form action="<?= BASE_URL ?>/<?= $this->language ?>/register" method="post" autocomplete="off">
+                            <div class="container-login-form-sub">
+                                <label>Fullname</label>
+                                <input class="fullname" type="text" name="name" placeholder="fullname" autocomplete="off">
+                            </div>
+                            <div class="container-login-form-sub">
+                                <label>Username</label>
+                                <input class="username" type="text" name="username" placeholder="Username" autocomplete="off">
+                            </div>
+                            <div class="container-login-form-sub">
+                                <label>Email</label>
+                                <input class="mail" type="text" name="email" placeholder="Email" autocomplete="off">
+                            </div>
+                            <div class="container-login-form-sub">
+                                <label>Phone number</label>
+                                <input class="phone" type="text" name="phone" placeholder="Phone number" autocomplete="off">
+                            </div>
+                            <div class="container-login-form-sub">
+                                <label>Password</label>
+                                <input  class="password"  type="password" name="password" placeholder="****" autocomplete="new-password">
+                            </div>
+                            <div class="container-login-form-sub">
+                                <label>Re-Password</label>
+                                <input  class="password"  type="password" name="re-password" placeholder="****" autocomplete="new-password">
+                            </div>
+                            <div class="container-login-form-sub">
+                                <label>Referral code</label>
+                                <input class="mail" type="text" name="refer" placeholder="012" autocomplete="off">
+                            </div>
+                            <div class="container-login-form-sub container-login-form-sub-noicon">
+                                <label>Company</label>
+                                <input class="Company" type="text" name="company" placeholder="" autocomplete="off">
+                            </div>
+                            <div class="container-login-form-sub container-login-form-sub-noicon">
+                                <label>Position</label>
+                                <input class="Position" type="text" name="position" placeholder="" autocomplete="off">
+                            </div>
+                            <div class="container-login-form-sub container-login-form-sub-noicon">
+                                <label>Industry</label>
+                                <input class="Industry" type="text" name="industry" placeholder="" autocomplete="off">
+                            </div>
+                            <div class="container-login-form-sub container-login-form-sub-noicon">
+                                <label>Education</label>
+                                <input class="Education" type="text" name="education" placeholder="" autocomplete="off">
+                            </div>
+                            <div class="container-login-form-sub container-login-form-sub-noicon">
+                                <label>Country</label>
+                                <input class="Country" type="text" name="country" placeholder="" autocomplete="off">
+                            </div>
+                            <div class="container-login-form-sub container-login-form-sub-noicon">
+                                <label>City</label>
+                                <input class="City" type="text" name="city" placeholder="" autocomplete="off">
+                            </div>
+                            <div class="container-login-form-sub container-login-form-sub-noicon">
+                                <label>Description</label>
+                                <input class="Description" type="text" name="desc" placeholder="" autocomplete="off">
+                            </div>
+                            <button type="submit" value="Register">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

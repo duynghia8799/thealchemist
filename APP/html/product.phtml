@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+    <!--<body oncontextmenu="return false">-->
+    <body>
+        <?php include "p_header.phtml"; ?>
+        <div class="content">
+            <?php if($this->post):?>
+            <?php include "p_detail.phtml";?>
+            <?php elseif($this->catID):?>
+            <?php include "p_category.phtml";?>
+            <?php else:?>
+                <?php include "p_index.phtml";?>
+            <?php endif;?>
+            <?php if ( $this->pageBar ): ?>
+                <div class="page">
+                    <?php print $this->pageBar ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <?php include "p_footer.phtml"; ?>
+    </body>
+</html>

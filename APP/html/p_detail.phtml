@@ -1,0 +1,64 @@
+<div class="cat">
+    <?php include 'p_cat-menu.phtml'; ?>
+    <div class="post">
+        <div class="nav clear">
+            <ul>
+                <li><a>Sản phẩm</a></li>
+                <li><a><?=$this->title?></a></li>
+                <li><a><?=$this->post['color_title']?></a></li>
+            </ul>
+        </div>
+        <h2 id="title-detail"><?= $this->post['title'] ?></h2>
+        <div id="quote-detail">
+            <?= $this->post['quote'] ?>
+        </div>
+        <div class="slider-container">
+            <div class="slider">
+                <img src="<?=BASE_URL?>/files/images/product/<?=($this->post['i1mg'])?>" />
+                <?php if($this->newerPosts): ?>
+                    <?php foreach($this->newerPosts as $a ): ?>
+                        <img src="<?=BASE_URL?>/files/images/product/<?=($a['i1mg'])?>" />
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+            <div class="items">
+
+                <?php
+                //demo
+                $images[] = array(
+                    'ID'=>$this->post['ID'],
+                    'title' => $this->post['title'],
+                    'quote' => $this->post['quote'],
+                    'path'=>BASE_URL."/files/images/product/".$this->post['i0mg'],
+                );
+                if($this->newerPosts):
+                    foreach($this->newerPosts as $a ):
+                        $images[] = array(
+                            'ID' => $a['ID'],
+                            'title' => $a['title'],
+                            'quote' => $a['quote'],
+                            'path'=>BASE_URL."/files/images/product/".$a['i0mg'],
+                        );
+                    endforeach;
+                endif;
+                foreach ($images as $i => $image) {
+                    echo "<a class='item' data-title='{$image['title']}' data-quote='{$image['quote']}'>"
+                    . "<img  src='{$image['path']}' rel='" . ($i) . "'/>"
+                    . "</a>";
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    (function($){
+        $('body').on('click','a.item',function(){
+            if($(this).attr('data-title'))
+                $("#title-detail").html($(this).attr('data-title'));
+            if($(this).attr('data-quote'))
+                $("#title-quote").html($(this).attr('data-quote'));
+        });
+    })(jQuery);
+</script>
+

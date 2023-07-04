@@ -1,0 +1,123 @@
+<?=
+$this->action("header", "index", "Sub", array(
+    'language' => $this->language,
+    'moduleTitle' => $this->module,
+    'meta_desc'=>$this->meta['desc'],
+    'meta_key'=>$this->meta['key']
+))
+?>
+<?php
+$colors = array(
+    //"color-orange",
+    "color-blue");
+$color = $colors[rand(0, count($colors) - 1)];
+?>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="box <?php echo $color; ?>">
+                <div class="posts">
+                    <h4 class="posts-title">
+                        <?php if ( $this->title ): ?>
+                            <?= $this->title ?>
+                        <?php else: ?>
+                            <?= $this->translate('Shareholder') ?>
+                        <?php endif; ?>
+                    </h4>
+                    <iframe class="hidden" name="hidden-iframe" id="hidden-iframe"></iframe>
+                    <table class="file-list" cellpadding="10" cellspacing="0">
+                        <?php if ( $this->cat ): ?>
+                            <?php if ( count($this->cat['posts']) > 0 ): ?>
+                                <?php foreach ( $this->cat['posts'] as $k => $posts ): ?>
+                                    <tr>
+                                        <td valign="top" align="center" width='12%'>
+                                            <span class="fa fa-3x fa-bullhorn"></span><br/><?= $this->translate('Year') ?> <?= $k ?>
+                                        </td>
+                                        <td>
+                                            <?php foreach ( $posts as $i => $post ): ?>
+                                                <div class="file">
+                                                    <a data-toggle="modal" data-target="#modal<?php echo ($k . '-' . $i); ?>"><span class="fa fa-file-zip-o"></span>&nbsp;&nbsp;&nbsp;<?= $post['title'] ?></a>
+                                                    <!-- Modal -->
+                                                    <?php if ( $this->error ): ?>
+                                                        <p style="color:red;"><?php die("<script> alert(" . json_encode($this->error) . "); </script>"); ?></p>
+                                                    <?php endif; ?>
+                                                    <form action="<?= BASE_URL ?>/<?= $this->language ?>/<?php echo ($this->language == "vn" ? 'co-dong' : 'Shareholder'); ?>" method="post" target="hidden-iframe">
+                                                        <input type="hidden" name="post_id" value="<?= $post['ID'] ?>"/>
+                                                        <div class="modal fade" id="modal<?php echo ($k . '-' . $i); ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                        <h4 class="modal-title" id="myModalLabel"><?= $this->translate('To download documents you need to fill out personal information') ?></h4>
+                                                                    </div>
+                                                                    <div class="modal-body clearfix">
+                                                                        <div class="form-group clearfix">
+                                                                            <label for="textfield" class="control-label col-sm-2"><?= $this->translate('Name') ?></label>
+                                                                            <div class="col-sm-10">
+                                                                                <input type="text" name="name" class="form-control" value="<?= $this->name ?>">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group clearfix">
+                                                                            <label for="textfield" class="control-label col-sm-2"><?= $this->translate('Phone') ?></label>
+                                                                            <div class="col-sm-10">
+                                                                                <input type="text" name="phone" class="form-control" value="<?= $this->phone ?>">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group clearfix">
+                                                                            <label for="textfield" class="control-label col-sm-2"><?= $this->translate('Address') ?></label>
+                                                                            <div class="col-sm-10">
+                                                                                <input type="text" name="address" class="form-control" value="<?= $this->address ?>">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group clearfix">
+                                                                            <label for="textfield" class="control-label col-sm-2"><?= $this->translate('Other info') ?></label>
+                                                                            <div class="col-sm-10">
+                                                                                <input type="text" name="desc" class="form-control" value="<?= $this->desc ?>">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal"><?= $this->translate('Cancel') ?></button>
+                                                                        <button type="submit" class="btn btn-primary"><?= $this->translate('Download') ?></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </td>
+                                    </tr>
+
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <?=
+            $this->action("submenu", "index", "Sub", array(
+                'language' => $this->language,
+                'id_active' => $this->id_active,
+                'moduleTitle' => $this->module))
+            ?>
+            <?=
+            $this->action("quickmenu", "index", "Sub", array(
+                'language' => $this->language,
+                'moduleTitle' => $this->module))
+            ?>
+            <?=
+            $this->action("news", "index", "Sub", array(
+                'language' => $this->language,
+                'moduleTitle' => $this->module))
+            ?>
+        </div>
+    </div>
+</div>
+<?=
+$this->action("footer", "index", "Sub", array(
+    'language' => $this->language,
+    'moduleTitle' => $this->module))
+?>
