@@ -1,17 +1,45 @@
 <?php
 
-class Trade_IndexController extends Zend_Controller_Action {
-
-    public function init() {
-        $customer = $_SESSION['cp__customer'];
-//        if ($customer) {
-//            if ($customer['type_id'] == 1) {
-//                $this->_redirect(BASE_URL . "/{$this->language}/tin-tuc");
-//            }
-//        }
-    }
-
+class TradeBasic_IndexController extends Zend_Controller_Action {
     public function indexAction() {
+        $plugins = $this->Plugins;
+        $models = $this->Model;
+        $view = $this->view;
+        $table = 'candle_pattern';
+        /*
+         * Study: Rsi - 7, Rsi - 14....
+         * Tabs: Telther, Bitcoin...
+         * Types: 1D, H4, H1
+         */
+        $study = $plugins->get('study', 'RSI7');
+        $tab = $plugins->get('tab', 'USDT');
+        $type = $plugins->get('type' , '1D');
+        $list = $plugins->get('list' , 'st');
+        $symbol = $plugins->get('symbol', '');  
+        $postId = $plugins->get('ID', 0);
+        $postCurrent = [];
+        if ($postId) {
+            $postCurrent = $models->getOne($table, "WHERE `ID` = {$postId}");
+        }
+        
+        
+        
+        $wherePost = "`{$study}` > 70 OR `{$study}` < 30";
+        $rightPosts = $models->queryAll("SELECT * FROM `{$table}` WHERE " . $wherePost);
+
+        if ($rightPosts && !$postCurrent) {
+            $postCurrent = $rightPosts[0];
+        }
+        
+        if (!$symbol && $postCurrent) {
+            $symbol = $postCurrent['symbol'];
+        }
+
+        $view->rightPosts = $rightPosts;
+        $view->symbol = $symbol;
+        $view->postCurrent = $postCurrent;
+    }
+    public function indexActionHide() {
         $customer = $_SESSION['cp__customer'];
         $date = date('Y-m-d');
         $ID = $this->Plugins->getNum('ID', 0);

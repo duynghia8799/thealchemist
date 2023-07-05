@@ -62,7 +62,9 @@ switch ($module) {
             $request->setModuleName("Trade");
         } elseif ($controller == "trade2") {
             $request->setModuleName("Trade2");
-        }elseif ($controller == "predictions") {
+        } elseif ($controller == "tradebasic") {
+            $request->setModuleName("TradeBasic");
+        } elseif ($controller == "predictions") {
             $request->setModuleName("Predictions");
         } elseif ($controller == "history") {
             $request->setModuleName("History");
@@ -333,6 +335,9 @@ switch ($module) {
         break;
     case 'trade2':
         $request->setModuleName("Trade2");
+        break;
+    case 'tradebasic':
+        $request->setModuleName("TradeBasic");
         break;
     case 'predictions':
         $request->setModuleName("Predictions");
