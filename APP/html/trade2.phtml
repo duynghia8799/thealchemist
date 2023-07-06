@@ -1,80 +1,13 @@
 <?php
-$prices = $this->prices;
-$formulars = $this->formulars;
-$prices = $this->prices;
-$formulars = $this->formulars;
-$posts = $this->posts;
-$postBtcs = $this->postBtcs;
+$plugins = $this->Plugins;
+$studies = $plugins->get('study', 'RSI7');
+$tab = $plugins->get('tab', 'USDT');
+$type = $plugins->get('type', '1D');
+$list = $plugins->get('list', 'st');
+$symbol = $this->symbol; // Fake
+$rightPosts = $this->rightPosts;
 $postCurrent = $this->postCurrent;
-$histories = $this->histories;
-$symbol = $this->symbol;
-$rsi7 = $this->rsi;
-//$symbol = 'BTCUSDT';
-$tab = $this->tab;
-$type = $this->type;
-$activeList = $this->aclist;
-$postMyLists = $this->postMyLists;
-$postMyProLists = $this->postMyProLists;
-//xử lý referer
-$referer = $_SERVER['SCRIPT_URI'];
-//Xử lý request
-$studies = $this->Plugins->get('study', "");
-
-if (!$studies && $postCurrent) {
-    if ($post['view_id']) {
-        if ($post['view_id'] == 1) {
-            $studies = 'RSI';
-        } elseif ($post['view_id'] == 2) {
-            $studies = 'RSI, SPAR';
-        } elseif ($post['view_id'] == 3) {
-            $studies = 'RSI14';
-        } elseif ($post['view_id'] == 4) {
-            $studies = 'RSI14, SPAR';
-        }
-    }
-}
-
-$study = [];
-if ($studies) {
-    foreach (explode(',', $studies) as $a) {
-        if ($a == 'RSI') {
-            $study[] = [
-                'id' => $a . "@tv-basicstudies",
-                'inputs' => ['length' => 7]
-            ];
-        } elseif ($a == 'RSI14') {
-            $study[] = [
-                'id' => "RSI@tv-basicstudies",
-                'inputs' => ['length' => 14]
-            ];
-        } else {
-            $study[] = [
-                'id' => $a . "@tv-basicstudies",
-            ];
-        }
-    }
-} else {
-    $studies = 'RSI';
-    $study[] = [
-        'id' => "RSI@tv-basicstudies",
-        'inputs' => ['length' => 7]
-    ];
-}
-
-
-$interval = "1D";
-if ($type == "H4") {
-    $interval = "4H";
-}
-
-$rightPosts = [];
-if ($activeList == 'pro') {
-    $rightPosts = $postMyProLists;
-} elseif ($activeList == 'my') {
-    $rightPosts = $postMyLists;
-} else {
-    $rightPosts = $posts;
-}
+$postHighLight = $this->highlightpost;
 ?>
 <!DOCTYPE html>
 <html>
@@ -91,92 +24,21 @@ if ($activeList == 'pro') {
         <!--Notice Box--> 
         <div class="container"> 
             <div class="altrade-body">
-                
                     <div class="notice-box">
-                        
-                           <a> Alchemist primary alert!<span style="color: #1A64F0;" href="#"> SEE MORE</span></a>
-                        
+                        <a> Alchemist primary alert!<span style="color: #1A64F0;" href="#"> SEE MORE</span></a>
                     </div>    
-                
-                        <!--confuluence-->
-        
                     <div class="confluence-bar">
-                        <!--
-                            <div class="confluence-box-2">
-                                <a class="confluence-box-2 <?= $studies == 'RSI' ? "confluence-box-2-active" : "" ?>" href="?symbol=<?= $symbol ?>&study=RSI&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                              RSI-7 &amp; Candlestick Model
-                                </a>
-                            </div>
-                      
-                               
-                            <div class="confluence-box-2">
-                                <a class="<?= $studies == 'RSI14' ? "active" : "" ?>" href="?symbol=<?= $symbol ?>&study=RSI14&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                                    RSI-14 &amp; Candlestick Model
-                                </a>
-                            </div>
-                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                            <div class="confluence-box-2">
-                                <a class="<?= $studies == 'RSI,PSAR' ? "active" : "" ?>" href="?symbol=<?= $symbol ?>&study=RSI,PSAR&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                                RSI-7 &amp; Parabolic SAR
-                                </a>
-                            </div>
-                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                            <div class="confluence-box-2">
-                                <a class="<?= $studies == 'RSI14,PSAR' ? "active" : "" ?>" href="?symbol=<?= $symbol ?>&study=RSI14,PSAR&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                                RSI-14 &amp; Parabolic SAR
-                                </a>
-                            </div>
-                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                            <div class="confluence-box-2">
-                                <a class="<?= $studies == 'ADX14,PSAR' ? "active" : "" ?>" href="?symbol=<?= $symbol ?>&study=ADX14,PSAR&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                                ADX-14 &amp; Parabolic SAR
-                                </a>
-                            </div>
-                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                            <div class="confluence-box-2">
-                                <a class="<?= $studies == 'OTHER' ? "active" : "" ?>" href="symbol=<?= $symbol ?>&study=OTHER&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                                Others 
-                                </a>
-                            </div>
-                              --> 
-                            <div class="confluence-box-2 <?= $studies == 'RSI' ? "confluence-box-2-active" : "" ?>" >
-                                        <a href="?symbol=<?= $symbol ?>&study=RSI&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                                        RSI-7 &amp; Candlestick Model</a>
-                            </div>
-                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                            <div class="confluence-box-2 <?= $studies == 'RSI14' ? "confluence-box-2-active" : "" ?>" >
-                                        <a href="?symbol=<?= $symbol ?>&study=RSI14&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                                        RSI-14 &amp; Candlestick Model</a>
-                            </div>
-                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                            <div class="confluence-box-2 <?= $studies == 'RSI,PSAR' ? "confluence-box-2-active" : "" ?>" >
-                                        <a href="?symbol=<?= $symbol ?>&study=RSI,PSAR&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                                        RSI-7 &amp; Parabolic SAR</a>
-                            </div>
-                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                            <div class="confluence-box-2 <?= $studies == 'RSI14,PSAR' ? "confluence-box-2-active" : "" ?>" >
-                                        <a href="?symbol=<?= $symbol ?>&study=RSI14,PSAR&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                                        RSI-14 &amp; Parabolic SAR</a>
-                            </div>
-                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                            <div class="confluence-box-2 <?= $studies == 'ADX,PSAR' ? "confluence-box-2-active" : "" ?>" >
-                                        <a href="?symbol=<?= $symbol ?>&study=ADX,PSAR&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                                        ADX-14 &amp; Parabolic SAR</a>
-                            </div>
-                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                                <div class="confluence-box-2 <?= $studies == 'OTHERS' ? "confluence-box-2-active" : "" ?>" >
-                                        <a href="?symbol=<?= $symbol ?>&study=OTHERS&type=<?= $type ?>&aclist=<?= $activeList ?>">
-                                        Others</a>
-                            </div>
-                           <!--
-                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                            --> 
-                        <!--stablecoin-bar-->
+                        <div class="confluence-box-2 <?= $studies == 'RSI7' ? "confluence-box-2-active" : "" ?>" >
+                            <a href="?study=RSI7">RSI-7 &amp; Candlestick Model</a>
+                        </div>
+                        <div class="confluence-box-2 <?= $studies == 'RSI14' ? "confluence-box-2-active" : "" ?>" >
+                            <a href="?study=RSI14">RSI-14 &amp; Candlestick Model</a>
+                        </div>
                             
                         <div class="stablecoin-frame">
                             
                             <a type="button" class="stablecoin-button-1 
-                                    <?= $tab == 'USDT' ? "stablecoin-button-1-active" : "" ?>" href="?tab=USDT">
+                                    <?= $tab == 'USDT' ? "stablecoin-button-1-active" : "" ?>" href="?tab=USDT&study=<?= $studies ?>">
                                 
                                     <span class="label-satblecoin">
                                         <img src="<?= BASE_URL ?>/style/css/new-images/icon-coin/icon-usdt.svg">
@@ -186,12 +48,7 @@ if ($activeList == 'pro') {
                                 
                             </a>
                             
-                            <!--
-                            <div class="stablecoin-button-1 <?= $tab == 'USDT' ? "active" : "" ?>">
-                            <a href="?tab=USDT">USDT</a>
-                            </div>
-                             -->
-                            <a href="?tab=BTC" class="stablecoin-button-1 
+                            <a href="?tab=BTC&study=<?= $studies ?>" class="stablecoin-button-1 
                                                     <?= $tab == 'BTC' ? "stablecoin-button-1-active" : "" ?>">
                                 
                                     <span class="label-satblecoin">
@@ -201,7 +58,7 @@ if ($activeList == 'pro') {
                                         <span style="color: #1A64F0;">BTC</span>
                                 
                             </a>
-                            <a href="?tab=BUSD" type="button" class="stablecoin-button-1 
+                            <a href="?tab=BUSD&study=<?= $studies ?>" type="button" class="stablecoin-button-1 
                                                 <?= $tab == 'BUSD' ? "stablecoin-button-1-active" : "" ?>">
                                 
                                     <span class="label-satblecoin">
@@ -212,100 +69,84 @@ if ($activeList == 'pro') {
                              <!--time-frame -->    
                             </a>
                                 <img src="<?= BASE_URL ?>/style/css/new-images/Vector 62 (Stroke).svg" alt="Vector 62 (Stroke).svg">
-                            <a href="?study=<?= $studies ?>&symbol=<?= $symbol ?>&tab=<?= $tab ?>&type=D1&aclist=<?= $activeList ?>" type="button" class="timeframe-button
-                                        <?= $type == 'D1' ? "timeframe-button-active" : "" ?>">
-                                        <span>1D</span>        
+                            <a href="?type=1D&study=<?= $studies ?>&tab=<?= $tab ?>" type="button" class="timeframe-button
+                                <?= $type == '1D' ? "timeframe-button-active" : "" ?>">
+                                <span>1D</span>        
                             </a>
-                            <a href="?study=<?= $studies ?>&symbol=<?= $symbol ?>&tab=<?= $tab ?>&type=H4&aclist=<?= $activeList ?>" class="timeframe-button
-                                                    <?= $type == 'H4' ? "timeframe-button-active" : "" ?>">
-                                         <span>4H </span>
+                            <a href="?type=4H&study=<?= $studies ?>&tab=<?= $tab ?>" class="timeframe-button
+                                <?= $type == '4H' ? "timeframe-button-active" : "" ?>">
+                                <span>4H </span>
                             </a>
-                            <a href="?study=<?= $studies ?>&symbol=<?= $symbol ?>&tab=<?= $tab ?>&type=H1&aclist=<?= $activeList ?>" class="timeframe-button 
-                                        <?= $type == 'H1' ? "timeframe-button-active" : "" ?>">
-                                        <span>1H</span>
+                            <a href="?type=1H&study=<?= $studies ?>&tab=<?= $tab ?>" class="timeframe-button 
+                                <?= $type == '1H' ? "timeframe-button-active" : "" ?>">
+                                <span>1H</span>
                             </a>
-                            <a href="?study=<?= $studies ?>&symbol=<?= $symbol ?>&tab=<?= $tab ?>&type=30m&aclist=<?= $activeList ?>" class="timeframe-button
-                                            <?= $type == '30m' ? "timeframe-button-active" : "" ?>">
-                                            <span>30m</span>
+                            <a href="?type=30m&study=<?= $studies ?>&tab=<?= $tab ?>" class="timeframe-button
+                                <?= $type == '30m' ? "timeframe-button-active" : "" ?>">
+                                <span>30m</span>
                             </a>
                         </div>
              
                         <!--tutorial-->
                         <div class="tutorial-frame" type="button">
-                                <label><img src="<?= BASE_URL ?>/style/css/new-images/video-circle.svg" alt="video-circle.svg""> Tutorial</label>                          
+                            <label><img src="<?= BASE_URL ?>/style/css/new-images/video-circle.svg" alt="video-circle.svg""> Tutorial</label>                          
                         </div>
                         <div class="tutorial-frame-1" type="button">
-                                <label><img src="<?= BASE_URL ?>/style/css/new-images/book.svg" alt="book.svg"> Guide</label>                            
+                            <label><img src="<?= BASE_URL ?>/style/css/new-images/book.svg" alt="book.svg"> Guide</label>                            
                         </div>
             
                         <!--coin-name-->
         
                         <div class="coin-name">
-                        <a>
-                            <?= $symbol ?>
-                        </a>
+                            <a><?= $symbol ?></a>
                         </div>
             
-                        <!--suggestion-->
                         <div class="coin-suggestion">
-                                        <div class="text-effect <?= $referer == ('http://thealchemist.ai/en/trade2' ||'http://thealchemist.ai/en/trade2#') ? "text-effect-active" : "" ?>">
-                                            <a href="http://thealchemist.ai/en/trade2">
-                                            Suggestion
-                                            </a>
-                                        </div>
-                                        <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                                        <div class="text-effect <?= $referer == 'http://thealchemist.ai/en/history2' ? "text-effect-active" : "" ?>">
-                                            <a href="http://thealchemist.ai/en/history2">
-                                            My Watchlist
-                                            </a>
-                                        </div>
-                            <!--
-                            <div class="suggestion-text" href="http://thealchemist.ai/en/trade2">Suggestion</div>
-                                <label><img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg"></label>
-                            <div class="suggestion-text" href="http://thealchemist.ai/en/history2">My Watchlist</div>
-                            --> 
+                            <div class="text-effect text-effect-active">
+                                <a href="http://thealchemist.ai/en/trade2">
+                                Suggestion
+                                </a>
+                            </div>
+                            <div class="text-effect">
+                                <a href="http://thealchemist.ai/en/trade2">
+                                My Watchlist
+                                </a>
+                            </div>
                         </div>
             
-                        <!--history + chart + list-coin--> 
-
                         <div class="history-box">
                                 <br>
-                                <a style="font-family: 'Poppins'; font-size: 18px; ">Order History</a>
+                                <a style="font-family: 'Poppins'; font-size: 18px; ">Highlight</a>
                                 <br>
                                 
                                 <table class="history-table" <?= $activeUSD ?>" id="usd">
                                     <thead>
                                         <tr class="tr-bottom text_headerlist">
-                                            <th scope="col" style="color:#1A64F0;">Time</th>
-                                            <th scope="col" style="color:#1A64F0;">Date</th>
-                                            <th scope="col" style="color:#1A64F0;">Status</th>
+                                            <th scope="col" style="color:#1A64F0;">Name</th>
+                                            <th scope="col" style="color:#1A64F0;">Discovered on</th>
                                         </tr>
                                     </thead>
                                     <tbody class="tr-bottom text_onlist">
-                                <?php if ($histories): ?>
-                                    <?php foreach ($histories as $k => $post): ?>
-                                        <?php
-                                        if ($type == 'H4') {
-                                            $d2 = strtotime($post['date_h4'], '+4 hours') + 4;
-                                        } else {
-                                            $d2 = strtotime('+1 day' , $post['date'] ) + 1;
-                                        }
-                                        ?>
-                                        <tr style="border-bottom: 1px solid #F6F6F6;" class="<?= $postCurrent['ID'] == $post['ID'] ? "trade-coin-tr-active" : "" ?>">
+                                <?php if ($postHighLight): ?>
+                                    <?php foreach ($postHighLight as $hight): ?>
+                                        <tr style="border-bottom: 1px solid #F6F6F6;">
                                             <td class="align-middle">
-                                                <a class='trade-coin-a' href="?ID=<?php echo($post['ID']) ?>&symbol=<?php echo($post['symbol']) ?>&type=<?php echo($type) ?>&study=<?= $studies ?>" data-toggle="tooltip" data-placement="right" title="<?= $post['symbol'] ?>"><?php echo(date("d/m",$post['close_time'] / 1000 + 1)) ?></a>
+                                                <a href="?ID=<?= $hight['id'] ?>&list=<?= $list ?>&symbol=<?= $post['symbol'] ?>&tab=<?= $tab ?>&type=<?= $type ?>&study=<?= $studies ?>"
+                                                   style="color:<?= $hight['model_type'] == "UP" ? '#00BD46' : '#CC0001' ?>;" 
+                                                   class="trade-coin-a" 
+                                                   data-placement="right" 
+                                                   title="<?= $hight['symbol'] ?>">
+                                                    <?= get_quote(strip_tags($hight['symbol']), 6) ?>
+                                                </a>
                                             </td>
                                             <td class="align-middle">
-                                                <?php echo(date("H:i", $d2)) ?>
-
-                                            </td>
-                                            <td class="align-middle">
-                                                <?php if ($k % 1 == 0) : ?> Done
-                                                <?php elseif ($k % 2 == 1) : ?> Waiting
-                                                <?php else : ?> Fail
-                                                <?php endif; ?>
+                                                <span class="pr-2" data-placement="right">
+                                                    <span class='desc'><?= date('H:i - d/m' , strtotime($hight['date_find'])) ?></span>
+                                                </span>
                                             </td>
                                         </tr>
+                                        
+                                   
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
@@ -316,212 +157,76 @@ if ($activeList == 'pro') {
 
                                 <?php endif; ?>
                             </tbody>
-                                    <!--
-                                        <tr class="tr-bottom text_onlist">
-                                            <td>00:00</td>
-                                            <td>11/11</td>
-                                            <td>Done</td>
-                                        </tr>
-                                        <tr class="tr-bottom text_onlist">
-                                            <td>00:00</td>
-                                            <td>12/12</td>
-                                            <td>Failed</td>
-                                        </tr>
-                                        <tr class="tr-bottom text_onlist">
-                                            <td>00:00</td>
-                                            <td>11/11</td>
-                                            <td>Done</td>
-                                        </tr>
-                                        <tr class="tr-bottom text_onlist">
-                                            <td>00:00</td>
-                                            <td>11/11</td>
-                                            <td>Done</td>
-                                        </tr>
-                                        <tr class="tr-bottom text_onlist">
-                                            <td>00:00</td>
-                                            <td>11/11</td>
-                                            <td>Done</td>
-                                        </tr>
-                                        <tr class="tr-bottom text_onlist">
-                                            <td>00:00</td>
-                                            <td>11/11</td>
-                                            <td>Done</td>
-                                        </tr>
-                                        <tr class="tr-bottom text_onlist">
-                                            <td>00:00</td>
-                                            <td>11/11</td>
-                                            <td>Done</td>
-                                        </tr>
-                                        <tr class="tr-bottom text_onlist">
-                                            <td>00:00</td>
-                                            <td>11/11</td>
-                                            <td>Done</td>
-                                        </tr>
-                                        <tr class="tr-bottom text_onlist">
-                                            <td>00:00</td>
-                                            <td>11/11</td>
-                                            <td>Done</td>
-                                        </tr>
-                                        <tr class="tr-bottom text_onlist">
-                                            <td>00:00</td>
-                                            <td>11/11</td>
-                                            <td>Done</td>
-                                        </tr>
-                                -->
                                 </table>
                         </div>
                     
                 
         
-                            <!--TDV JS--> 
-                    
-                                <div class="tradingview-frame">
-                                    <div class="tradingview-widget-container mb-3">
-                                        <div id="crypt-candle-chart"></div>
-                                    </div>
-
-                                </div>
+                        <!--TDV JS--> 
+                        <div class="tradingview-frame">
+                            <div class="tradingview-widget-container mb-3">
+                                <div id="crypt-candle-chart"></div>
+                            </div>
+                        </div>
                
                             <!--listcoinbox-->
                             
                                 <div class="listcoin-box">
                                     <div class="standard-box">
-                                        <div class="text-effect <?= $activeList == 'st' ? "text-effect-active" : "" ?>" >
-                                            <a href="?symbol=<?= $symbol ?>&aclist=st&tab=<?php echo($tab) ?>&type=<?php echo($type) ?>">
+                                        <div class="text-effect <?= $list == 'st' ? "text-effect-active" : "" ?>" >
+                                            <a href="?list=st&symbol=<?= $symbol ?>&tab=<?= $tab ?>&type=<?= $type ?>&study=<?= $studies ?>">
                                                 Standard
                                             </a>
                                         </div>
-                                        <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                                        <div class="text-effect <?= $activeList == 'my' ? "text-effect-active" : "" ?>" >
-                                            <a class="<?= $activeList == 'my' ? "active" : "" ?>" href="?symbol=<?= $symbol ?>&aclist=my&tab=<?php echo($tab) ?>&type=<?php echo($type) ?>">
+                                        <div class="text-effect <?= $list == 'my' ? "text-effect-active" : "" ?>" >
+                                            <a href="?list=my&symbol=<?= $symbol ?>&tab=<?= $tab ?>&type=<?= $type ?>&study=<?= $studies ?>">
                                                 My List
                                             </a>
                                         </div>
-                                        <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                                        <div class="text-effect <?= $activeList == 'pro' ? "text-effect-active" : "" ?>" >
-                                            <a class="<?= $activeList == 'pro' ? "active" : "" ?>" href="?symbol=<?= $symbol ?>&aclist=pro&tab=<?php echo($tab) ?>&type=<?php echo($type) ?>">
+                                        <div class="text-effect <?= $list == 'pro' ? "text-effect-active" : "" ?>" >
+                                            <a href="?list=pro&symbol=<?= $symbol ?>&tab=<?= $tab ?>&type=<?= $type ?>&study=<?= $studies ?>">
                                                  Pro List
                                             </a>
                                         </div>
                                     </div>
-                                    <!--
-                                        <div class="standard-box">
-                                            
-                                            <div class="text-effect <?php $activeList == 'st' ? "active" : '' ?>">
-                                            
-                                               <a href="?study=<?php echo($studies) ?>&aclist=st&tab=<?php echo($tab) ?>&type=<?php echo($type) ?>">
-                                                Standard </a> 
-                                            </div>
-                                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                                            <div class="text-effect 
-                                                <?php $activeList == 'my' ? "active" : "" ?>">
-                                                <a href="?study=<?php echo($studies) ?>&aclist=my&tab=<?php echo($tab) ?>&type=<?php echo($type) ?>">   
-                                                My List</a>
-                                            </div>
-                                                <img src="<?= BASE_URL ?>/style/css/new-images/Vector 60 (Stroke).svg" alt="Vector 60 (Stroke).svg">
-                                            <div class="text-effect <?php $activeList == 'pro' ? _e("text-effect .active") : "" ?>">
-                                                <a href="?study=<?php echo($studies) ?>&aclist=pro&tab=<?php echo($tab) ?>&type=<?php echo($type) ?>">
-                                                Pro List</a>
-                                            </div>
-                                        </div>
-                                        --> 
-                                        <div class="tab-pane trade-container-right-tab work-form-item-tab-info-content <?= $activeList ?>">
-                                            <table class="listcoin-table">
-                                            
-                                                <thead>
-                                                    <tr class="tr-bottom text_headerlist">
-                                                        <th scope="col" style="color:#1A64F0;">Name</th>
-                                                        <th scope="col" style="color:#1A64F0; width:200px; height: 30px;" colspan="2">Discovered on</th>
+                                    <div class="tab-pane trade-container-right-tab work-form-item-tab-info-content <?= $activeList ?>">
+                                        <table class="listcoin-table">
+                                            <thead>
+                                                <tr class="tr-bottom text_headerlist">
+                                                    <th scope="col" style="color:#1A64F0;">Name</th>
+                                                    <th scope="col" style="color:#1A64F0; width:200px; height: 30px;" colspan="2">Discovered on</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody class="tr-bottom text_onlist" >
+                                                    <?php foreach ($rightPosts as $post): ?>
+                                                    <tr style="border-bottom: 1px solid #F6F6F6; height:38px;" class="<?= $postCurrent['ID'] == $post['ID'] ? "trade-coin-tr-active" : "" ?>">
+                                                        <td class="align-middle">
+                                                            <a href="?ID=<?= $post['id'] ?>&list=<?= $list ?>&symbol=<?= $post['symbol'] ?>&tab=<?= $tab ?>&type=<?= $type ?>&study=<?= $studies ?>"
+                                                               style="color:<?= $post['model_type'] == "UP" ? '#00BD46' : '#CC0001' ?>;" 
+                                                               class="trade-coin-a" 
+                                                               data-placement="right" 
+                                                               title="<?= $post['symbol'] ?>">
+                                                                <?= get_quote(strip_tags($post['symbol']), 6) ?>
+                                                            </a>
+                                                        </td>
+                                                        <td class="align-middle">
+                                                            <span class="pr-2" data-placement="right">
+                                                                <span class='desc'><?= date('H:i - d/m' , strtotime($post['date_find'])) ?></span>
+                                                            </span>
+                                                        </td>
                                                     </tr>
-                                                </thead>
-
-                                                <tbody class="tr-bottom text_onlist" >
-                                                        <?php foreach ($rightPosts as $post): ?>
-                                                        <?php
-                                                        if ($type == 'H4') {
-                                                            $d2 = strtotime($post['date_h4'], +'4 hours') + 4;
-                                                        } else {
-                                                            $d2 = strtotime($post['date'], '+1 day') + 1;
-                                                        }
-                                                        ?>
-                                                        <tr style="border-bottom: 1px solid #F6F6F6; height:38px;" class="<?= $postCurrent['ID'] == $post['ID'] ? "trade-coin-tr-active" : "" ?>">
-                                                            <td class="align-middle">
-                                                                <a class="trade-coin-a" href="?ID=<?php echo($post['ID']) ?>&aclist=<?php _e($activeList); ?>&symbol=<?php echo($post['symbol']) ?>&tab=<?php echo($tab) ?>&type=<?php echo($type) ?>&study=<?= $studies ?>" data-placement="right" title="<?= $post['symbol'] ?>"><?= get_quote(strip_tags($post['symbol']), 6) ?>
-                                                                </a>
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <span class="pr-2" data-placement="right" title="<?= $d2 ?>">
-                                                                    <span class='desc'><?php echo(date("d/m", $d2)) ?></span>
-                                                                </span>
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <?php echo(date("H:i", $d2)) ?>
-                                                            </td>
-
-                                                        </tr>
-
-                                                        <?php endforeach; ?>
-                                                        <!--
-                                                        <tr class="tr-bottom text_onlist">
-                                                            <td style="color: #00BD46;">BTCUSDT</td>
-                                                            <td>00/00 - 24/01 </td>
-                                                        </tr>
-                                                        <tr class="tr-bottom text_onlist">
-                                                            <td style="color:#CC0001">AMPUSDT</td>
-                                                            <td>00/00 - 24/01 </td>
-                                                        </tr>
-                                                        <tr class="tr-bottom text_onlist">
-                                                            <td style="color: #00BD46;">ETHUSDT</td>
-                                                            <td>00/00 - 24/01 </td>
-                                                        </tr>
-                                                        <tr class="tr-bottom text_onlist">
-                                                            <td style="color:#CC0001">XRPUSDT</td>
-                                                            <td>00/00 - 24/01 </td>
-                                                        </tr>
-                                                        <tr class="tr-bottom text_onlist">
-                                                            <td style="color: #00BD46;">FILUSDT</td>
-                                                            <td>00/00 - 24/01 </td>
-                                                        </tr>
-                                                        <tr class="tr-bottom text_onlist">
-                                                            <td style="color:#CC0001">AXSUSDT</td>
-                                                            <td>00/00 - 24/01 </td>
-                                                        </tr>
-                                                        <tr class="tr-bottom text_onlist">
-                                                            <td style="color: #00BD46;">ALCTUSDT</td>
-                                                            <td>00/00 - 24/01 </td>
-                                                        </tr>
-                                                        <tr class="tr-bottom text_onlist">
-                                                            <td style="color:#CC0001">ALCTUSDT</td>
-                                                            <td>00/00 - 24/01 </td>
-                                                        </tr><tr class="tr-bottom text_onlist">
-                                                            <td style="color:#CC0001">ALCTUSDT</td>
-                                                            <td>00/00 - 24/01 </td>
-                                                        </tr><tr class="tr-bottom text_onlist">
-                                                            <td style="color: #00BD46;">ALCTUSDT</td>
-                                                            <td>00/00 - 24/01 </td>
-                                                        </tr>
-                                                        -->
-                                                </tbody> 
-                                            </table>
-                                        </div>
+                                                    <?php endforeach; ?>
+                                            </tbody> 
+                                        </table>
+                                    </div>
                                 </div>
              
                     <!--order infomation-->   
               
                             <div class="order-information"> 
                                 <br>
-                                <br>
                                    <a style="font-family: 'Poppins'; font-size: 18px; "> <strong>Order Information</strong></a>
-                                        <!--Trading Pair Information-->
-                                        <?php
-                                        $dCurrent = $postCurrent['date'];
-                                        $detail = [];
-                                        if ($postCurrent) {
-                                            $detail = json_decode($postCurrent['json_details']);
-                                            $formular = $formulars[$postCurrent['type_id']];
-                                        }
-                                        ?>
-                                        <div role="tabpanel" class="tab-pane <?= $activeUSD ?>" id="usd">
                                         <!--coin-name-->
                                 <div class="information-box">
                                     <div class="coin-box-1">
@@ -537,7 +242,7 @@ if ($activeList == 'pro') {
                                         <div class="text-box-frame left-frame">
                                             <a class="title-box-1">Detected&emsp;Pattern:</a>
                                             <a class="title-box-long"> 
-                                                <?= $postCurrent['model_title'] ?? $formular['title'] ?> 
+                                                <?= $postCurrent['model_title'] ?? '' ?> 
                                             </a>
                                         </div>
                                     </div>
@@ -545,54 +250,42 @@ if ($activeList == 'pro') {
                                     <div class="coin-box-1">
                                             <div class="text-box-frame left-frame">       
                                                 <a class="title-box-1">Entry &emsp; Point:</a>
-                                                <a class="title-box-2"> 
-                                                    <?php echo($detail->buylong)?> 
-                                                </a>
+                                                <a class="title-box-2">--</a>
                                             </div>
                                     </div>
                                         <!--Target-->
                                     <div class="coin-box-1">
                                         <div class="text-box-frame left-frame">
                                             <a style="color: #00BD46;" class="title-box-1">Target &emsp; Point:</a>
-                                            <a style="color: #00BD46" class="title-box-2"> 
-                                                <?php echo($detail->target3) ?> 
-                                            </a>
+                                            <a style="color: #00BD46" class="title-box-2">--</a>
                                         </div>
                                     </div>
                                         <!---Stop-loss-->
                                     <div class="coin-box-2">
                                         <div class="text-box-frame left-frame">
                                             <a style="color: #CC0001;" class="title-box-1">Stop Loss:</a>
-                                            <a style="color: #CC0001;" class="title-box-2"> 
-                                                <?php echo($detail->stoploss) ?> 
-                                            </a>
+                                            <a style="color: #CC0001;" class="title-box-2">--</a>
                                         </div>
                                     </div>
                                         <!---Reward-->
                                     <div class="coin-box-2">
                                         <div class="text-box-frame left-frame">
                                             <a style="color: #00BD46;" class="title-box-1">Reward:</a>
-                                            <a style="color: #00BD46;" class="title-box-2">     
-                                                <?php echo($detail->r2) ?> 
-                                            </a>
+                                            <a style="color: #00BD46;" class="title-box-2">--</a>
                                         </div>
                                     </div>
                                         <!---Risk-->
                                     <div class="coin-box-2">
                                         <div class="text-box-frame left-frame">
                                             <a style="color: #CC0001;" class="title-box-1">Risk:</a>
-                                            <a style="color: #CC0001;" class="title-box-2">
-                                                <?php echo($detail->r1) ?>
-                                            </a>
+                                            <a style="color: #CC0001;" class="title-box-2">--</a>
                                         </div>
                                     </div>
                                         <!---Detected-->
                                     <div class="coin-box-1">
                                         <div class="text-box-frame left-frame">
                                             <a class="title-box-1">Detected &emsp; on:</a>
-                                            <a class="title-box-2"> 
-                                                <?php echo(date("d/m H:i", $postCurrent['close_time'] / 1000 + 1)) ?>
-                                            </a>
+                                            <a class="title-box-2"><?= date('H:i - d/m' , strtotime($postCurrent['date_find'])) ?></a>
                                         </div>
                                     </div>
                                             <!---Status-->
@@ -600,19 +293,7 @@ if ($activeList == 'pro') {
                                         <div class="text-box-frame left-frame">
                                             <a class="title-box-1">Status:</a>
                                             <a class="title-box-2">
-                                            <span>
-                                            <?php
-                                                if ($postCurrent['status'] == 'DOING') {
-                                                    _e('Match');
-                                                } elseif ($postCurrent['status'] == 'FAIL') {
-                                                    _e('Loss');
-                                                } elseif ($postCurrent['status'] == 'WON') {
-                                                    _e('Win');
-                                                } else {
-                                                    _e('Pending');
-                                                }
-                                            ?>
-                                            </span>
+                                            --
                                             </a>
                                         </div>
                                     </div>
@@ -626,7 +307,7 @@ if ($activeList == 'pro') {
                                                 <div class="text-box-frame left-frame"> 
                                                     <a style="width:fit-content; font-size: 12px;"class="title-box-1">Detected Pattern:</a>
                                                     <a style="color:#1A64F0; font-size: 12px;" class="title-box-2">
-                                                        <?= $postCurrent['model_title'] ?? $formular['title'] ?>
+                                                        <?= $postCurrent['model_title'] ?? '' ?>
                                                     </a>
                                                 </div>
                                             
@@ -635,62 +316,41 @@ if ($activeList == 'pro') {
                                                 <div class="left-detected-box">
                                                     <div class="sub-detected-box">
                                                         <a style="width:fit-content; font-size: 14px; color:#7D7D7D;">Entry Point:</a>
-                                                        <a style="width:fit-content; font-size: 16px;">
-                                                            <?php echo($detail->buylong) ?>
-                                                        </a>
+                                                        <a style="width:fit-content; font-size: 16px;">--</a>
                                                 </div>
                                                 <div class="sub-detected-box">
                                                     <a style="width:fit-content; font-size: 14px; color:#7D7D7D;">DCA1</a>
-                                                    <a style="width:fit-content; font-size: 16px;">
-                                                        <?php echo($detail->target1) ?></a>
+                                                    <a style="width:fit-content; font-size: 16px;">--</a>
                                                 </div>
                                                 <div class="sub-detected-box">
                                                     <a style="width:fit-content; font-size: 14px; color:#7D7D7D;">DCA2</a>
-                                                    <a style="width:fit-content; font-size: 16px;">
-                                                        <?= $detail->target2 ?>
-                                                    </a>
+                                                    <a style="width:fit-content; font-size: 16px;">--</a>
                                                 </div>
                                             </div>
                                             
                                             <div class="right-indicator left-frame">
                                                 <a style="width:fit-content; font-size: 12px;"class="title-box-1">Indicator:</a>
-                                                <a style="color:#1A64F0; font-size: 12px;" class="title-box-2">
-                                                    <?php if ($studies == 'RSI') : ?> RSI-7  
-                                                    <?php elseif ($studies == 'RSI14') : ?> RSI-14 
-                                                    <?php elseif ($studies == 'RSI,PSAR') : ?> RSI-7 &amp PSAR
-                                                    <?php elseif ($studies == 'RSI14,PSAR') : ?> RSI-14 &amp PSAR
-                                                    <?php elseif ($studies == 'ADX,PSAR') : ?> ADX &amp PSAR
-                                                    <?php else : ?> Others
-                                                    <?php endif; ?>
-                                                </a>
+                                                <a style="color:#1A64F0; font-size: 12px;" class="title-box-2"><?= $studies . ' ~ ' . $postCurrent[strtolower($studies)] ?></a>
                                             </div>
 
                                             <div class="right-detected-box">
                                                 <div class="sub-detected-box">
                                                     <a style="width:fit-content; font-size: 14px; color:#7D7D7D;">Target Point:</a>
-                                                    <a style="width:fit-content; font-size: 16px;">
-                                                        <?php echo($detail->target3) ?>
-                                                    </a>
+                                                    <a style="width:fit-content; font-size: 16px;">--</a>
                                                 </div>
                                                 <div class="risk-reward-box">
                                                     <div class="small-sub-detected-box">
                                                         <a style="width:fit-content; font-size: 14px; color:#7D7D7D;">Risk:</a>
-                                                        <a style="width:fit-content; font-size: 16px;">
-                                                            <?php echo($detail->r1) ?>
-                                                        </a>
+                                                        <a style="width:fit-content; font-size: 16px;">--</a>
                                                     </div>
                                                     <div class="small-sub-detected-box-1">
                                                         <a style="width:fit-content; font-size: 14px; color:#7D7D7D;">Reward:</a>
-                                                        <a style="width:fit-content; font-size: 16px;">
-                                                             <?php echo($detail->r2) ?>
-                                                        </a>
+                                                        <a style="width:fit-content; font-size: 16px;">--</a>
                                                     </div>
                                                 </div>
                                                 <div class="sub-detected-box">
                                                     <a style="width:fit-content; font-size: 14px; color:#7D7D7D;">Stop Loss</a>
-                                                    <a style="width:fit-content; font-size: 16px;">
-                                                            <?php echo($detail->stoploss) ?>
-                                                    </a>
+                                                    <a style="width:fit-content; font-size: 16px;">--</a>
                                                 </div>
                                 
                                             </div>
@@ -773,10 +433,7 @@ if ($activeList == 'pro') {
                         </div>
                                 <!--end-right-box-->
                     </div>           
-            </div>        
-                                <!--End-Trading-Strategy-->
-            
-                                <!--end_al_trade-->
+            </div>
         </div>
 </div>
 

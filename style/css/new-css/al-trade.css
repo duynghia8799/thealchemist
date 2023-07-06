@@ -11,11 +11,10 @@
 .confluence-bar {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: start;
     align-items: flex-start;
     padding: 20px;
     padding-left: 0;
-    gap: 20px;
     position: absolute;
     width: 1280px;
     height: 20px;
@@ -40,10 +39,10 @@
     color:#7D7D7D;
 }
 
-.confluence-box-2{
-    width: 196px;
-    height: 20px;
+.confluence-box-2 {
     font-family: 'Poppins';
+    padding: 0 20px;
+    border-right: 1px solid #D0D0D2;
     font-weight: 600;
     font-size: 14px;
     text-align: left;
@@ -53,6 +52,16 @@
     flex-grow: 0;
     position:relative;
 }
+
+.confluence-bar .confluence-box-2:first-child {
+    padding: 0 20px 0 0;
+}
+
+.confluence-bar .confluence-box-2:last-child {
+    padding: 0 0 0 20px;
+    border-right: none;
+}
+
 .confluence-box-2 a {
     color:#7D7D7D;
 }
@@ -252,8 +261,6 @@
     font-size: 14px;
     gap: 12px;
     position: absolute;
-    width: 180px;
-    height: 24px;
     top: 100px;
     right: 25px;
 
