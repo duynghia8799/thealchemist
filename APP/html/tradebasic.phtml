@@ -7,6 +7,7 @@ $list = $plugins->get('list', 'st');
 $symbol = $this->symbol; // Fake
 $rightPosts = $this->rightPosts;
 $postCurrent = $this->postCurrent;
+$postHighLight = $this->highlightpost;
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,13 +28,14 @@ $postCurrent = $this->postCurrent;
                         <a> Alchemist primary alert!<span style="color: #1A64F0;" href="#"> SEE MORE</span></a>
                     </div>    
                     <div class="confluence-bar">
-                        <div class="confluence-box-2 <?= $studies == 'RSI7' ? "confluence-box-2-active" : "" ?>" >
-                            <a href="?study=RSI7">RSI-7 &amp; Candlestick Model</a>
+                        <div style="display: flex;">
+                            <div class="confluence-box-2 <?= $studies == 'RSI7' ? "confluence-box-2-active" : "" ?>" >
+                                <a href="?study=RSI7">RSI-7 &amp; Candlestick Model</a>
+                            </div>
+                            <div class="confluence-box-2 <?= $studies == 'RSI14' ? "confluence-box-2-active" : "" ?>" >
+                                <a href="?study=RSI14">RSI-14 &amp; Candlestick Model</a>
+                            </div>
                         </div>
-                        <div class="confluence-box-2 <?= $studies == 'RSI14' ? "confluence-box-2-active" : "" ?>" >
-                            <a href="?study=RSI14">RSI-14 &amp; Candlestick Model</a>
-                        </div>
-                            
                         <div class="stablecoin-frame">
                             
                             <a type="button" class="stablecoin-button-1 
@@ -115,42 +117,37 @@ $postCurrent = $this->postCurrent;
             
                         <div class="history-box">
                                 <br>
-                                <a style="font-family: 'Poppins'; font-size: 18px; ">Order History</a>
+                                <a style="font-family: 'Poppins'; font-size: 18px; ">Highlight</a>
                                 <br>
                                 
                                 <table class="history-table" <?= $activeUSD ?>" id="usd">
                                     <thead>
                                         <tr class="tr-bottom text_headerlist">
-                                            <th scope="col" style="color:#1A64F0;">Time</th>
-                                            <th scope="col" style="color:#1A64F0;">Date</th>
-                                            <th scope="col" style="color:#1A64F0;">Status</th>
+                                            <th scope="col" style="color:#1A64F0;">Name</th>
+                                            <th scope="col" style="color:#1A64F0;">Discovered on</th>
                                         </tr>
                                     </thead>
                                     <tbody class="tr-bottom text_onlist">
-                                <?php if ($histories): ?>
-                                    <?php foreach ($histories as $k => $post): ?>
-                                        <?php
-                                        if ($type == 'H4') {
-                                            $d2 = strtotime($post['date_h4'], '+4 hours') + 4;
-                                        } else {
-                                            $d2 = strtotime('+1 day' , $post['date'] ) + 1;
-                                        }
-                                        ?>
-                                        <tr style="border-bottom: 1px solid #F6F6F6;" class="<?= $postCurrent['ID'] == $post['ID'] ? "trade-coin-tr-active" : "" ?>">
+                                <?php if ($postHighLight): ?>
+                                    <?php foreach ($postHighLight as $hight): ?>
+                                        <tr style="border-bottom: 1px solid #F6F6F6;">
                                             <td class="align-middle">
-                                                <a class='trade-coin-a' href="?ID=<?php echo($post['ID']) ?>&symbol=<?php echo($post['symbol']) ?>&type=<?php echo($type) ?>&study=<?= $studies ?>" data-toggle="tooltip" data-placement="right" title="<?= $post['symbol'] ?>"><?php echo(date("d/m",$post['close_time'] / 1000 + 1)) ?></a>
+                                                <a href="?ID=<?= $hight['id'] ?>&list=<?= $list ?>&symbol=<?= $post['symbol'] ?>&tab=<?= $tab ?>&type=<?= $type ?>&study=<?= $studies ?>"
+                                                   style="color:<?= $hight['model_type'] == "UP" ? '#00BD46' : '#CC0001' ?>;" 
+                                                   class="trade-coin-a" 
+                                                   data-placement="right" 
+                                                   title="<?= $hight['symbol'] ?>">
+                                                    <?= get_quote(strip_tags($hight['symbol']), 6) ?>
+                                                </a>
                                             </td>
                                             <td class="align-middle">
-                                                <?php echo(date("H:i", $d2)) ?>
-
-                                            </td>
-                                            <td class="align-middle">
-                                                <?php if ($k % 1 == 0) : ?> Done
-                                                <?php elseif ($k % 2 == 1) : ?> Waiting
-                                                <?php else : ?> Fail
-                                                <?php endif; ?>
+                                                <span class="pr-2" data-placement="right">
+                                                    <span class='desc'><?= date('H:i - d/m' , strtotime($hight['date_find'])) ?></span>
+                                                </span>
                                             </td>
                                         </tr>
+                                        
+                                   
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
@@ -229,7 +226,6 @@ $postCurrent = $this->postCurrent;
                     <!--order infomation-->   
               
                             <div class="order-information"> 
-                                <br>
                                 <br>
                                    <a style="font-family: 'Poppins'; font-size: 18px; "> <strong>Order Information</strong></a>
                                         <!--coin-name-->
