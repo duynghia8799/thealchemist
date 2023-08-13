@@ -2154,8 +2154,12 @@ ul.container-new-top-right-list li a{
     border:1px solid #EEF0F2;
 }
 .trade-container-right-tab{
-    max-height: 520px;
-    overflow-y: scroll;
+/*    max-height: 520px;
+    overflow-y: scroll;*/
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .trade-container-right-title{
     text-align: center;

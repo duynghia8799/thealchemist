@@ -7,7 +7,8 @@ $list = $plugins->get('list', 'st');
 $symbol = $this->symbol; // Fake
 $rightPosts = $this->rightPosts;
 $postCurrent = $this->postCurrent;
-$postHighLight = $this->highlightpost;
+$leftPostUp = $this->leftPostsUp;
+$leftPostDown = $this->leftPostsDown;
 ?>
 <!DOCTYPE html>
 <html>
@@ -116,48 +117,79 @@ $postHighLight = $this->highlightpost;
                         </div>
             
                         <div class="history-box">
-                                <br>
                                 <a style="font-family: 'Poppins'; font-size: 18px; ">Highlight</a>
-                                <br>
                                 
                                 <table class="history-table" <?= $activeUSD ?>" id="usd">
                                     <thead>
-                                        <tr class="tr-bottom text_headerlist">
+                                        <tr class="text_headerlist">
                                             <th scope="col" style="color:#1A64F0;">Name</th>
                                             <th scope="col" style="color:#1A64F0;">Discovered on</th>
                                         </tr>
                                     </thead>
                                     <tbody class="tr-bottom text_onlist">
-                                <?php if ($postHighLight): ?>
-                                    <?php foreach ($postHighLight as $hight): ?>
-                                        <tr style="border-bottom: 1px solid #F6F6F6;">
-                                            <td class="align-middle">
-                                                <a href="?ID=<?= $hight['id'] ?>&list=<?= $list ?>&symbol=<?= $post['symbol'] ?>&tab=<?= $tab ?>&type=<?= $type ?>&study=<?= $studies ?>"
-                                                   style="color:<?= $hight['model_type'] == "UP" ? '#00BD46' : '#CC0001' ?>;" 
-                                                   class="trade-coin-a" 
-                                                   data-placement="right" 
-                                                   title="<?= $hight['symbol'] ?>">
-                                                    <?= get_quote(strip_tags($hight['symbol']), 6) ?>
-                                                </a>
-                                            </td>
-                                            <td class="align-middle">
-                                                <span class="pr-2" data-placement="right">
-                                                    <span class='desc'><?= date('H:i - d/m' , strtotime($hight['date_find'])) ?></span>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        
-                                   
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <tr>
-                                        <td class="align-middle" colspan="3">
-                                            Nothing
-                                        </td>
-                                    </tr>
+                                        <?php if ($leftPostUp): ?>
+                                            <?php foreach ($leftPostUp as $postUp): ?>
+                                                <tr style="border-bottom: 1px solid #F6F6F6;">
+                                                    <td class="align-left">
+                                                        <a href="?ID=<?= $postUp['id'] ?>&list=<?= $list ?>&symbol=<?= $post['symbol'] ?>&tab=<?= $tab ?>&type=<?= $type ?>&study=<?= $studies ?>"
+                                                           style="color:<?= $postUp['model_type'] == "UP" ? '#00BD46' : '#CC0001' ?>;" 
+                                                           class="trade-coin-a" 
+                                                           data-placement="right" 
+                                                           title="<?= $postUp['symbol'] ?>">
+                                                            <?= get_quote(strip_tags($postUp['symbol']), 6) ?>
+                                                        </a>
+                                                    </td>
+                                                    <td class="align-middle" style="color:<?= $postUp['model_type'] == "UP" ? '#00BD46' : '#CC0001' ?>;">
+                                                        <span class="pr-2" data-placement="right">
+                                                            <span class='desc'><?= date('H:i - d/m' , strtotime($postUp['date_find'])) ?></span>
+                                                        </span>
+                                                    </td>
+                                                </tr>
 
-                                <?php endif; ?>
-                            </tbody>
+
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td class="align-middle" colspan="3">
+                                                    Nothing
+                                                </td>
+                                            </tr>
+
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                                <table class="history-table" <?= $activeUSD ?>" id="usd">
+                                    <tbody class="tr-bottom text_onlist">
+                                        <?php if ($leftPostDown): ?>
+                                            <?php foreach ($leftPostDown as $postDown): ?>
+                                                <tr style="border-bottom: 1px solid #F6F6F6;">
+                                                    <td class="align-left">
+                                                        <a href="?ID=<?= $postDown['id'] ?>&list=<?= $list ?>&symbol=<?= $post['symbol'] ?>&tab=<?= $tab ?>&type=<?= $type ?>&study=<?= $studies ?>"
+                                                           style="color:<?= $postDown['model_type'] == "UP" ? '#00BD46' : '#CC0001' ?>;" 
+                                                           class="trade-coin-a" 
+                                                           data-placement="right" 
+                                                           title="<?= $postDown['symbol'] ?>">
+                                                            <?= get_quote(strip_tags($postDown['symbol']), 6) ?>
+                                                        </a>
+                                                    </td>
+                                                    <td class="align-middle" style="color:<?= $postDown['model_type'] == "UP" ? '#00BD46' : '#CC0001' ?>;">
+                                                        <span class="pr-2" data-placement="right">
+                                                            <span class='desc'><?= date('H:i - d/m' , strtotime($postDown['date_find'])) ?></span>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+
+
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td class="align-middle" colspan="3">
+                                                    Nothing
+                                                </td>
+                                            </tr>
+
+                                        <?php endif; ?>
+                                    </tbody>
                                 </table>
                         </div>
                     
@@ -193,16 +225,16 @@ $postHighLight = $this->highlightpost;
                                     <div class="tab-pane trade-container-right-tab work-form-item-tab-info-content <?= $activeList ?>">
                                         <table class="listcoin-table">
                                             <thead>
-                                                <tr class="tr-bottom text_headerlist">
+                                                <tr class="text_headerlist">
                                                     <th scope="col" style="color:#1A64F0;">Name</th>
-                                                    <th scope="col" style="color:#1A64F0; width:200px; height: 30px;" colspan="2">Discovered on</th>
+                                                    <th scope="col" style="color:#1A64F0;" colspan="2">Discovered on</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody class="tr-bottom text_onlist" >
                                                     <?php foreach ($rightPosts as $post): ?>
-                                                    <tr style="border-bottom: 1px solid #F6F6F6; height:38px;" class="<?= $postCurrent['ID'] == $post['ID'] ? "trade-coin-tr-active" : "" ?>">
-                                                        <td class="align-middle">
+                                                    <tr style="border-bottom: 1px solid #F6F6F6;" class="<?= $postCurrent['ID'] == $post['ID'] ? "trade-coin-tr-active" : "" ?>">
+                                                        <td class="align-left">
                                                             <a href="?ID=<?= $post['id'] ?>&list=<?= $list ?>&symbol=<?= $post['symbol'] ?>&tab=<?= $tab ?>&type=<?= $type ?>&study=<?= $studies ?>"
                                                                style="color:<?= $post['model_type'] == "UP" ? '#00BD46' : '#CC0001' ?>;" 
                                                                class="trade-coin-a" 
@@ -211,7 +243,7 @@ $postHighLight = $this->highlightpost;
                                                                 <?= get_quote(strip_tags($post['symbol']), 6) ?>
                                                             </a>
                                                         </td>
-                                                        <td class="align-middle">
+                                                        <td style="color:<?= $post['model_type'] == "UP" ? '#00BD46' : '#CC0001' ?>;"  class="align-middle">
                                                             <span class="pr-2" data-placement="right">
                                                                 <span class='desc'><?= date('H:i - d/m' , strtotime($post['date_find'])) ?></span>
                                                             </span>
@@ -459,7 +491,7 @@ $postHighLight = $this->highlightpost;
                         {
                             "autosize": true,
                             "symbol": "<?= $symbol ?>",
-                            "interval": "<?php echo($interval); ?>",
+                            "interval": "<?= $type ?>",
                             "timezone": "Europe/Greenwich",
                             "theme": "Light",
                             "style": "1",

@@ -25,9 +25,12 @@ class TradeBasic_IndexController extends Zend_Controller_Action {
         
         
         $wherePost = "`{$study}` > 70 OR `{$study}` < 30";
-        $rightPosts = $models->queryAll("SELECT * FROM `{$table}` WHERE " . $wherePost);
-        $leftPostsUp = $models->queryAll("SELECT * FROM `{$table}` WHERE " . $wherePost . " AND `date_find` = NOW() ORDER BY `{$study}` DESC LIMIT 5");
-        $leftPostsDown = $models->queryAll("SELECT * FROM `{$table}` WHERE " . $wherePost . " AND `date_find` = NOW() ORDER BY `{$study}` ASC LIMIT 5");
+//        $rightPosts = $models->queryAll("SELECT * FROM `{$table}` WHERE " . $wherePost);
+//        $leftPostsUp = $models->queryAll("SELECT * FROM `{$table}` WHERE " . $wherePost . " AND `date_find` = NOW() ORDER BY `{$study}` DESC LIMIT 5");
+//        $leftPostsDown = $models->queryAll("SELECT * FROM `{$table}` WHERE " . $wherePost . " AND `date_find` = NOW() ORDER BY `{$study}` ASC LIMIT 5");
+        $rightPosts = $models->queryAll("SELECT * FROM `{$table}` WHERE " . $wherePost . ' ORDER BY `date` DESC');
+        $leftPostsUp = $models->queryAll("SELECT * FROM `{$table}` WHERE (" . $wherePost . ") AND DATE (CURDATE() - INTERVAL WEEKDAY (CURDATE()) DAY) = DATE (`date` - INTERVAL WEEKDAY (`date`) DAY) ORDER BY `{$study}` DESC LIMIT 5");
+        $leftPostsDown = $models->queryAll("SELECT * FROM `{$table}` WHERE (" . $wherePost . ") AND DATE (CURDATE() - INTERVAL WEEKDAY (CURDATE()) DAY) = DATE (`date` - INTERVAL WEEKDAY (`date`) DAY) ORDER BY `{$study}` ASC LIMIT 5");
         
         if ($rightPosts && !$postCurrent) {
             $postCurrent = $rightPosts[0];
@@ -37,18 +40,19 @@ class TradeBasic_IndexController extends Zend_Controller_Action {
             $symbol = $postCurrent['symbol'];
         }
         
-        $postsHighLight = [];
-        if ($leftPostsUp) {
-            $postsHighLight = array_merge($postsHighLight, $leftPostsUp);
-        }
-        
-        if ($leftPostsDown) {
-            $postsHighLight = array_merge($postsHighLight, $leftPostsDown);
-        }
+//        $postsHighLight = [];
+//        if ($leftPostsUp) {
+//            $postsHighLight = array_merge($postsHighLight, $leftPostsUp);
+//        }
+//        
+//        if ($leftPostsDown) {
+//            $postsHighLight = array_merge($postsHighLight, $leftPostsDown);
+//        }
 
         $view->rightPosts = $rightPosts;
-//        $view->leftPostsUp = $leftPostsUp;
-        $view->highlightpost = $postsHighLight;
+        $view->leftPostsUp = $leftPostsUp;
+        $view->leftPostsDown = $leftPostsDown;
+//        $view->highlightpost = $postsHighLight;
         $view->symbol = $symbol;
         $view->postCurrent = $postCurrent;
     }
